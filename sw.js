@@ -1,5 +1,5 @@
 /* ============ SERVICE WORKER - TUTOR BAHASA ============ */
-const CACHE_VERSION = 'tutorbahasa-v2';
+const CACHE_VERSION = 'tutorbahasa-v3';
 
 // File inti yang WAJIB disimpan saat pertama kali install
 const CORE_ASSETS = [
