@@ -1,7 +1,8 @@
 {
-  "name": "Tutor Bahasa - BIPA Quizzes",
-  "short_name": "Tutor Bahasa",
-  "description": "Fun BIPA vocabulary quizzes for kids: Hobbies, Numbers, and more.",
+  "name": "Tutor Bahasa - BIPA Kids",
+  "short_name": "BIPA Kids",
+  "description": "Fun BIPA vocabulary quizzes for kids: Hobbies, Numbers, Daily Activities, and more.",
+  "id": "/kids/",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
@@ -16,16 +17,16 @@
       "purpose": "any"
     },
     {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "maskable"
-    },
-    {
       "src": "icon-512.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any"
+    },
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "maskable"
     },
     {
       "src": "icon-512.png",
