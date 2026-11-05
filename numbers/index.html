@@ -407,13 +407,24 @@
             
             <div class="input-group">
                 <label>🎯 Activity Mode</label>
-                <select id="inp-mode" class="select-with-arrow">
-                    <option value="standard">Standard Quiz (32 Questions)</option>
-                    <option value="full">Full Assessment (All Numbers)</option>
-                    <option value="practice_listening">Practice: Listening Only</option>
-                    <option value="practice_reading">Practice: Reading Only</option>
-                    <option value="practice_writing">Practice: Writing Only</option>
-                </select>
+			<select id="inp-mode" class="select-with-arrow">
+			<option value="standard">Standard Quiz (32 Questions)</option>
+			<option value="full">Full Assessment (All Numbers)</option>
+			<optgroup label="🎧 Practice: Listen & Match">
+				<option value="practice_listen">Listen & Pick Number (11 Q)</option>
+				<option value="practice_match">Match Number to Audio (11 Q)</option>
+				<option value="practice_reading">Read & Pick Word (11 Q)</option>
+			</optgroup>
+			<optgroup label="🎧 Practice: Listen & Understand">
+				<option value="practice_truefalse">True or False (11 Q)</option>
+				<option value="practice_counting">Counting Objects (11 Q)</option>
+				<option value="practice_choose_object">Choose Object (11 Q)</option>
+				<option value="practice_missing_number">Missing Number (11 Q)</option>
+			</optgroup>
+			<optgroup label="✍️ Practice: Writing">
+				<option value="practice_missing_letters">Missing Letters (11 Q)</option>
+			</optgroup>
+		</select>
             </div>
 
             <button class="btn" onclick="startQuiz()">🚀 Start Adventure</button>
@@ -918,41 +929,68 @@
                 });
                 TOTAL_Q = qs.length;
             } 
-            else if (activityMode === 'practice_listening') {
-                for(let i=0; i<10; i++) {
-                    const num = getRandomNum();
-                    const obj = OBJECTS[Math.floor(Math.random() * OBJECTS.length)];
-                    const types = ['listen', 'counting', 'match', 'true-false', 'choose-object', 'missing-number'];
-                    const randomType = types[Math.floor(Math.random() * types.length)];
-                    
-                    let q = { type: randomType, num: num, obj: obj };
-                    if (randomType === 'true-false') {
-                        let wrongNum = getRandomNum([num]);
-                        let isTrue = Math.random() > 0.5;
-                        q.audioNum = isTrue ? num : wrongNum;
-                        q.isTrue = isTrue;
-                    }
-                    if (randomType === 'choose-object') {
-                        q.wrongObj = OBJECTS.filter(o => o.id !== obj.id)[Math.floor(Math.random() * (OBJECTS.length - 1))];
-                    }
-                    qs.push(q);
-                }
-                TOTAL_Q = 10;
-            }
-            else if (activityMode === 'practice_reading') {
-                for(let i=0; i<10; i++) {
-                    const num = getRandomNum();
-                    qs.push({ type: 'reading', num: num });
-                }
-                TOTAL_Q = 10;
-            }
-            else if (activityMode === 'practice_writing') {
-                for(let i=0; i<10; i++) {
-                    const num = getRandomNum();
-                    qs.push({ type: 'missing-letters', num: num, word: NUMBERS[num-1] });
-                }
-                TOTAL_Q = 10;
-            }
+				/* ===== PRACTICE: 11 soal per tipe (fokus ke satu skill) ===== */
+				else if (activityMode.startsWith('practice_')) {
+				const t = activityMode.replace('practice_', '');
+				
+				// Loop semua 11 angka
+				for (let i = 1; i <= 11; i++) {
+					const num = i;
+					const word = NUMBERS[num - 1];
+					const obj = OBJECTS[i % OBJECTS.length];
+					
+					switch(t) {
+						case 'listen':
+							qs.push({ type: 'listen', num: num });
+							break;
+						
+						case 'reading':
+							qs.push({ type: 'reading', num: num });
+							break;
+						
+						case 'match':
+							qs.push({ type: 'match', num: num });
+							break;
+						
+						case 'missing_letters':
+							qs.push({ type: 'missing-letters', num: num, word: word });
+							break;
+						
+						case 'counting':
+							qs.push({ type: 'counting', num: num, obj: obj });
+							break;
+						
+						case 'missing_number':
+							qs.push({ type: 'missing-number', num: num });
+							break;
+						
+						case 'truefalse': {
+							let wrongNum = getRandomNum([num]);
+							let isTrue = Math.random() > 0.5;
+							qs.push({
+								type: 'true-false',
+								num: num,
+								obj: obj,
+								audioNum: isTrue ? num : wrongNum,
+								isTrue: isTrue
+							});
+							break;
+						}
+						
+						case 'choose_object': {
+							const wrongObj = OBJECTS.filter(o => o.id !== obj.id)[Math.floor(Math.random() * (OBJECTS.length - 1))];
+							qs.push({
+								type: 'choose-object',
+								num: num,
+								obj: obj,
+								wrongObj: wrongObj
+							});
+							break;
+						}
+					}
+				}
+				TOTAL_Q = 11;
+			}
             else {
                 TOTAL_Q = 32;
                 for(let i=0; i<4; i++) qs.push({ type: 'listen', num: getRandomNum() });
