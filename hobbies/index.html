@@ -384,13 +384,24 @@
             
             <div class="input-group">
                 <label>🎯 Activity Mode</label>
-                <select id="inp-mode" class="select-with-arrow">
-                    <option value="standard">Standard Quiz (28 Questions)</option>
-                    <option value="full">Full Assessment (All Words)</option>
-                    <option value="practice_listening">Practice: Listening Only</option>
-                    <option value="practice_reading">Practice: Reading Only</option>
-                    <option value="practice_writing">Practice: Writing Only</option>
-                </select>
+			<select id="inp-mode" class="select-with-arrow">
+			<option value="standard">Standard Quiz (28 Questions)</option>
+			<option value="full">Full Assessment (All Words)</option>
+			<optgroup label="🎧 Practice: Listen & Match">
+				<option value="practice_listen">Listen & Pick Picture (8 Q)</option>
+				<option value="practice_match">Match Picture to Audio (8 Q)</option>
+			</optgroup>
+			<optgroup label="🎧 Practice: Listen & Understand">
+				<option value="practice_truefalse">True or False (8 Q)</option>
+				<option value="practice_like">Like or Dislike (8 Q)</option>
+			</optgroup>
+			<optgroup label="📖 Practice: Reading">
+				<option value="practice_audio_text">Audio to Word (8 Q)</option>
+			</optgroup>
+			<optgroup label="✍️ Practice: Writing">
+				<option value="practice_missing_letters">Missing Letters (8 Q)</option>
+			</optgroup>
+		</select>
             </div>
 
             <button class="btn" onclick="startQuiz()">🚀 Start Adventure</button>
@@ -873,42 +884,44 @@
                 });
                 TOTAL_Q = qs.length;
             } 
-            else if (activityMode === 'practice_listening') {
-                for(let i=0; i<10; i++) {
-                    const v = vocabulary[Math.floor(Math.random() * vocabulary.length)];
-                    const types = ['listen', 'match', 'true-false', 'like'];
-                    const randomType = types[Math.floor(Math.random() * types.length)];
-                    let q = { ...v, type: randomType };
-                    if (randomType === 'like') q.isLike = Math.random() > 0.5;
-                    if (randomType === 'true-false') {
-                        let audioV = vocabulary[Math.floor(Math.random() * vocabulary.length)];
-                        const isTrue = Math.random() > 0.5;
-                        if (!isTrue && audioV.id === v.id) audioV = vocabulary.filter(x => x.id !== v.id)[0];
-                        q.sentence = isTrue ? v.sentence : audioV.sentence;
-                        q.isTrue = isTrue;
-                    }
-                    qs.push(q);
-                }
-                TOTAL_Q = 10;
-            }
-            else if (activityMode === 'practice_reading') {
-                for(let i=0; i<10; i++) {
-                    const v = vocabulary[Math.floor(Math.random() * vocabulary.length)];
-                    qs.push({ ...v, type: 'audio-text' });
-                }
-                TOTAL_Q = 10;
-            }
-            else if (activityMode === 'practice_writing') {
-                const candidates = vocabulary.filter(v => {
-                    const vowels = v.word.split('').filter(ch => 'aiueoAIUEO'.includes(ch));
-                    return vowels.length >= 2 && vowels.length <= 4;
-                });
-                for(let i=0; i<10; i++) {
-                    const v = candidates[Math.floor(Math.random() * candidates.length)];
-                    qs.push({ ...v, type: 'missing-letters' });
-                }
-                TOTAL_Q = 10;
-            }
+				/* ===== PRACTICE: 8 soal per tipe (fokus ke satu skill) ===== */
+				else if (activityMode.startsWith('practice_')) {
+				const t = activityMode.replace('practice_', '');
+				vocabulary.forEach(v => {
+					switch(t) {
+						case 'listen':
+							qs.push({ ...v, type: 'listen' });
+							break;
+						case 'match':
+							qs.push({ ...v, type: 'match' });
+							break;
+						case 'audio_text':
+							qs.push({ ...v, type: 'audio-text' });
+							break;
+						case 'missing_letters': {
+							const vowels = v.word.split('').filter(ch => 'aiueoAIUEO'.includes(ch));
+							if (vowels.length >= 2 && vowels.length <= 4) {
+								qs.push({ ...v, type: 'missing-letters' });
+							}
+							break;
+						}
+						case 'truefalse': {
+							let audioV = vocabulary[Math.floor(Math.random() * vocabulary.length)];
+							const isTrue = Math.random() > 0.5;
+							if (!isTrue && audioV.id === v.id) {
+								audioV = vocabulary.filter(x => x.id !== v.id)[0];
+							}
+							qs.push({ ...v, type: 'true-false', sentence: isTrue ? v.sentence : audioV.sentence, isTrue: isTrue });
+							break;
+						}
+						case 'like': {
+							qs.push({ ...v, type: 'like', isLike: Math.random() > 0.5 });
+							break;
+						}
+					}
+				});
+				TOTAL_Q = qs.length; // 8 (atau kurang jika ada yang tidak qualify)
+			}
             else {
                 TOTAL_Q = 28;
                 for(let i=0; i<5; i++) {
