@@ -2,7 +2,7 @@
   "name": "Tutor Bahasa - BIPA Quizzes",
   "short_name": "Tutor Bahasa",
   "description": "Fun BIPA vocabulary quizzes for kids: Hobbies, Numbers, and more.",
-  "start_url": "./"
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
   "orientation": "portrait",
