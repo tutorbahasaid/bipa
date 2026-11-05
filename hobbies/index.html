@@ -3,15 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amed Honeycomb School · BIPA Quiz</title>
-	<link rel="manifest" href="manifest.json">
-	<meta name="theme-color" content="#fbbf24">
-	<meta name="apple-mobile-web-app-capable" content="yes">
-	<meta name="apple-mobile-web-app-status-bar-style" content="default">
-	<meta name="apple-mobile-web-app-title" content="Tutor Bahasa">
-	<link rel="apple-touch-icon" href="images/icon-192.png">
-    <link href="https://fonts.googleapis.com/css2?family=...&display=swap" rel="stylesheet">
+    <title>Tutor Bahasa · Hobbies Quiz</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Fredoka:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
+    
+    <!-- PWA Links (up one folder) -->
+    <link rel="manifest" href="../manifest.json">
+    <meta name="theme-color" content="#fbbf24">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <link rel="apple-touch-icon" href="../icon-192.png">
+    <link rel="icon" type="image/png" href="../icon-192.png">
+    <meta name="google" content="notranslate">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js" defer></script>
     <style>
         :root {
@@ -37,7 +42,7 @@
 
         .bg-hex { position: fixed; inset: 0; z-index: -2; pointer-events: none; background-image: radial-gradient(circle at 25px 25px, rgba(251, 191, 36, 0.06) 18px, transparent 19px), radial-gradient(circle at 75px 75px, rgba(59, 130, 246, 0.05) 18px, transparent 19px); background-size: 120px 120px; }
         .float-bg { position: fixed; inset: 0; pointer-events: none; z-index: -1; overflow: hidden; }
-        .float-emoji { position: absolute; font-size: 32px; opacity: 0.2; animation: floatUp linear infinite; }
+        .float-emoji { position: absolute; font-size: 32px; opacity: 0.15; animation: floatUp linear infinite; }
         @keyframes floatUp { 0% { transform: translateY(100vh) rotate(0deg); } 100% { transform: translateY(-10vh) rotate(360deg); } }
 
         .screen {
@@ -57,12 +62,15 @@
             background: linear-gradient(135deg, var(--yellow), var(--yellow-dark)); color: var(--yellow-text);
             border: none; padding: 18px 32px; border-radius: 16px; font-family: 'Baloo 2', sans-serif; font-size: 20px; font-weight: 700;
             letter-spacing: 0.5px; cursor: pointer; transition: all 0.2s; box-shadow: 0 6px 20px var(--yellow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.5);
-            margin-top: 20px; width: 100%; position: relative; overflow: hidden;
+            margin-top: 20px; width: 100%; position: relative; overflow: hidden; text-decoration: none; display: inline-block;
         }
         .btn::before { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, transparent 30%, rgba(255, 255, 255, 0.4) 50%, transparent 70%); transform: translateX(-100%); transition: transform 0.6s; }
         .btn:hover::before { transform: translateX(100%); }
         .btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px var(--yellow-glow), inset 0 1px 0 rgba(255, 255, 255, 0.5); }
         .btn:active { transform: translateY(1px); }
+
+        .btn-secondary { background: #ffffff; border: 2px solid var(--border-light); color: var(--text-soft); box-shadow: none; }
+        .btn-secondary:hover { background: var(--bg-soft); border-color: var(--yellow); box-shadow: 0 4px 12px rgba(0,0,0,0.05); }
 
         .login-mascot { position: relative; display: inline-block; margin-bottom: 16px; }
         .login-mascot .bee { font-size: 96px; display: inline-block; animation: beeFloat 3s infinite ease-in-out; filter: drop-shadow(0 10px 20px rgba(251, 191, 36, 0.3)); }
@@ -81,6 +89,8 @@
         .input-group input::placeholder { color: var(--text-light); font-weight: 400; }
         .input-group input:focus, .input-group select:focus { outline: none; border-color: var(--yellow); background: #ffffff; box-shadow: 0 0 0 4px rgba(251, 191, 36, 0.15); }
         .input-group input[readonly] { background: var(--bg-soft); color: var(--text-muted); cursor: not-allowed; border-color: var(--border-soft); }
+
+        .select-with-arrow { appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23f59e0b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 20px top 50%; background-size: 12px auto; }
 
         .quiz-header { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-bottom: 20px; flex-wrap: wrap; }
         .q-counter { font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 15px; padding: 10px 20px; border-radius: 999px; background: var(--blue-soft); border: 2px solid rgba(59, 130, 246, 0.3); color: var(--blue-dark); letter-spacing: 1px; text-transform: uppercase; }
@@ -121,15 +131,12 @@
         @keyframes ringPulse { 0% { opacity: 0.8; transform: scale(0.9); } 100% { opacity: 0; transform: scale(1.4); } }
 
         .image-frame { border-radius: 24px; overflow: hidden; border: 4px solid var(--yellow); box-shadow: 0 10px 30px rgba(251, 191, 36, 0.2), 0 4px 16px rgba(0, 0, 0, 0.08); background: #ffffff; display: flex; justify-content: center; align-items: center; margin: 0 auto 24px; position: relative; animation: cardFloat 3s infinite ease-in-out; transition: transform 0.3s; }
-        .image-frame img { width: 100%; height: 100%; object-fit: cover; pointer-events: none; display: block; }
+        .image-frame img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; display: block; padding: 10px; }
         .image-frame.option-img { margin: 0 auto; border-width: 2px; border-color: var(--border-soft); box-shadow: none; animation: none; border-radius: 16px; }
         .image-frame.option-img:hover { border-color: var(--yellow); }
         @keyframes cardFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 
-        .like-badge { position: absolute; top: -8px; right: -8px; font-size: 48px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4)); animation: badgeFloat 2s infinite ease-in-out; z-index: 2; pointer-events: none; }
-        .badge-green { color: #22c55e; }
-        .badge-red { color: #ef4444; }
-        @keyframes badgeFloat { 0%, 100% { transform: translateY(0) scale(1) rotate(0deg); } 50% { transform: translateY(-6px) scale(1.1) rotate(10deg); } }
+        .number-display { font-family: 'Baloo 2', sans-serif; font-size: 100px; font-weight: 800; color: var(--blue-dark); margin: 0 auto 24px; text-align: center; line-height: 1; }
 
         .missing-word { display: flex; justify-content: center; align-items: center; gap: 8px; flex-wrap: wrap; font-family: 'Baloo 2', sans-serif; font-size: 54px; font-weight: 800; margin: 24px auto; min-height: 90px; transition: color 0.3s; }
         .static-letter { color: var(--text); min-width: 22px; text-align: center; }
@@ -144,6 +151,11 @@
         .vowel-btn:hover:not(:disabled) { border-color: var(--yellow); background: var(--bg-tint); transform: translateY(-3px); box-shadow: 0 10px 24px rgba(251, 191, 36, 0.2); }
         .vowel-btn:active:not(:disabled) { transform: translateY(1px); }
 
+        .like-badge { position: absolute; top: -8px; right: -8px; font-size: 48px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4)); animation: badgeFloat 2s infinite ease-in-out; z-index: 2; pointer-events: none; }
+        .badge-green { color: #22c55e; }
+        .badge-red { color: #ef4444; }
+        @keyframes badgeFloat { 0%, 100% { transform: translateY(0) scale(1) rotate(0deg); } 50% { transform: translateY(-6px) scale(1.1) rotate(10deg); } }
+
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
 
         .option-card { background: #ffffff; border: 2px solid var(--border-light); border-radius: 22px; padding: 20px; cursor: pointer; transition: all 0.2s; user-select: none; box-shadow: var(--shadow-sm); display: flex; justify-content: center; align-items: center; min-height: 140px; position: relative; overflow: hidden; }
@@ -156,7 +168,7 @@
         .option-card.wrong { background: var(--red-soft); border-color: var(--red); animation: shake 0.5s; box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
         .option-card.disabled-attempt { opacity: 0.3; pointer-events: none; filter: grayscale(1); }
 
-        .text-option-card { background: #ffffff; border: 2px solid var(--border-light); border-radius: 22px; padding: 20px; cursor: pointer; transition: all 0.2s; user-select: none; box-shadow: var(--shadow-sm); display: flex; justify-content: center; align-items: center; min-height: 80px; position: relative; overflow: hidden; font-family: 'Baloo 2', sans-serif; font-size: 24px; font-weight: 700; color: var(--text); }
+        .text-option-card { background: #ffffff; border: 2px solid var(--border-light); border-radius: 22px; padding: 20px; cursor: pointer; transition: all 0.2s; user-select: none; box-shadow: var(--shadow-sm); display: flex; justify-content: center; align-items: center; min-height: 80px; position: relative; overflow: hidden; font-family: 'Baloo 2', sans-serif; font-size: 24px; font-weight: 700; color: var(--text); text-transform: capitalize; }
         .text-option-card:hover:not(.disabled-attempt) { border-color: var(--yellow); background: var(--bg-tint); transform: translateY(-3px); box-shadow: 0 10px 24px rgba(251, 191, 36, 0.2); }
         .text-option-card.correct { background: var(--green-soft); border-color: var(--green); transform: scale(1.05); box-shadow: 0 0 30px rgba(34, 197, 94, 0.4); }
         .text-option-card.correct::after { content: '⭐'; position: absolute; top: 12px; right: 16px; font-size: 24px; animation: starSpin 0.6s; }
@@ -235,7 +247,6 @@
         .cert-stars { font-size: 36px; letter-spacing: 6px; margin: 8px 0 6px; line-height: 1; }
         .cert-grade { display: inline-block; font-family: 'Baloo 2', sans-serif; font-weight: 700; font-size: 17px; padding: 8px 24px; border-radius: 999px; margin-top: 6px; background: linear-gradient(135deg, var(--yellow), var(--yellow-dark)); color: var(--yellow-text); letter-spacing: 1px; box-shadow: 0 4px 16px var(--yellow-glow); }
 
-        /* Breakdown Box */
         .breakdown-box { background: #ffffff; border: 2px solid var(--border-light); border-radius: 16px; padding: 16px 20px; margin-bottom: 24px; text-align: left; }
         .breakdown-title { font-family: 'Baloo 2', sans-serif; font-size: 14px; font-weight: 800; color: var(--text); letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px; border-bottom: 2px dashed var(--border-light); padding-bottom: 8px; }
         .breakdown-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; font-family: 'Fredoka', sans-serif; font-size: 14px; font-weight: 600; color: var(--text-soft); }
@@ -263,7 +274,6 @@
         .report-actions { margin-top: 24px; display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
         .report-actions .btn { flex: 1; min-width: 200px; max-width: 280px; margin-top: 0; }
 
-        /* Practice Result Card */
         .practice-card { background: #ffffff; border-radius: 20px; padding: 48px 56px; text-align: center; box-shadow: var(--shadow-lg); border: 4px solid var(--blue); max-width: 600px; margin: 0 auto; }
         .practice-title { font-family: 'Baloo 2', sans-serif; font-size: 32px; font-weight: 800; color: var(--blue-dark); margin-bottom: 20px; }
         .practice-score { font-family: 'Baloo 2', sans-serif; font-size: 80px; font-weight: 800; color: var(--text); line-height: 1; margin-bottom: 10px; }
@@ -315,6 +325,7 @@
             .tf-option { font-size: 24px; min-height: 100px; padding: 16px; }
             .missing-word { font-size: 36px; }
             .vowel-btn { min-width: 56px; min-height: 56px; font-size: 24px; padding: 12px; }
+            .number-display { font-size: 70px; }
             .certificate { padding: 28px 20px; border-width: 5px; }
             .cert-title { font-size: 26px; }
             .cert-name { font-size: 30px; padding: 0 16px; }
@@ -331,35 +342,9 @@
             .try-again-banner { font-size: 16px; padding: 12px 24px; }
             .try-again-banner .big { font-size: 24px; }
             .site-footer { font-size: 9px; padding: 4px 12px; bottom: 6px; }
-            .like-badge { font-size: 32px; top: -4px; right: -4px; }
             .practice-card { padding: 28px 20px; }
             .practice-score { font-size: 60px; }
         }
-		
-		#installBtn {
-		  position: fixed;
-		  bottom: 60px;
-		  right: 20px;
-		  background: linear-gradient(135deg, var(--blue-bright), var(--blue));
-		  color: white;
-		  border: none;
-		  padding: 14px 22px;
-		  border-radius: 999px;
-		  font-family: 'Baloo 2', sans-serif;
-		  font-weight: 700;
-		  font-size: 15px;
-		  cursor: pointer;
-		  box-shadow: 0 6px 20px var(--blue-glow);
-		  z-index: 900;
-		  animation: installPulse 2s infinite;
-		}
-		@keyframes installPulse {
-		  0%, 100% { transform: scale(1); }
-		  50% { transform: scale(1.06); }
-		}
-		#installBtn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px var(--blue-glow); }
-		#installBtn:active { transform: scale(0.95); }
-		
     </style>
 </head>
 <body>
@@ -374,14 +359,18 @@
 
     <!-- ============ LOGIN ============ -->
     <div id="screen-login" class="screen active">
-        <div class="login-mascot"><div class="bee">🐝</div></div>
-        <h1 class="login-title">Amed Honeycomb<br>School</h1>
+        <div class="login-mascot"><div class="bee">📚</div></div>
+        <h1 class="login-title">Hobbies<br>Edition</h1>
         <p class="login-sub">Learn <span class="highlight">BIPA Vocabulary</span> through fun games!</p>
 
         <div class="login-form">
             <div class="input-group">
                 <label>🏫 School</label>
-                <input type="text" id="inp-school" value="Amed Honeycomb School" readonly>
+                <select id="inp-school-select" class="select-with-arrow">
+                    <option value="Amed Honeycomb School">Amed Honeycomb School</option>
+                    <option value="other">+ Add other school...</option>
+                </select>
+                <input type="text" id="inp-school-custom" placeholder="Enter school name" style="display: none; margin-top: 8px;">
             </div>
             <div class="input-group">
                 <label>👤 Student Name</label>
@@ -394,7 +383,7 @@
             
             <div class="input-group">
                 <label>🎯 Activity Mode</label>
-                <select id="inp-mode" style="appearance: none; background-image: url('data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23f59e0b%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E'); background-repeat: no-repeat; background-position: right 20px top 50%; background-size: 12px auto;">
+                <select id="inp-mode" class="select-with-arrow">
                     <option value="standard">Standard Quiz (28 Questions)</option>
                     <option value="full">Full Assessment (All Words)</option>
                     <option value="practice_listening">Practice: Listening Only</option>
@@ -404,6 +393,8 @@
             </div>
 
             <button class="btn" onclick="startQuiz()">🚀 Start Adventure</button>
+            
+            <a href="../numbers/" class="btn btn-secondary" style="margin-top: 10px;">🔢 Switch to Numbers Quiz</a>
         </div>
     </div>
 
@@ -438,16 +429,16 @@
     <!-- ============ REPORT (Certificate) ============ -->
     <div id="screen-report" class="screen">
         <div class="certificate">
-            <span class="cert-corner tl">🐝</span>
+            <span class="cert-corner tl">📚</span>
             <span class="cert-corner tr">⭐</span>
-            <span class="cert-corner bl">🍯</span>
+            <span class="cert-corner bl">🎨</span>
             <span class="cert-corner br">🌟</span>
 
             <div class="cert-inner">
-                <span class="cert-bee-top">🐝</span>
+                <span class="cert-bee-top">📚</span>
 
                 <div class="cert-header">
-                    <div class="cert-school">Amed Honeycomb School</div>
+                    <div class="cert-school" id="rep-school">-</div>
                     <div class="cert-title">Certificate of Achievement</div>
                     <div class="cert-subtitle">BIPA Vocabulary Adventure · Hobbies Edition</div>
                 </div>
@@ -536,14 +527,15 @@
 
         <div class="report-actions no-print">
             <button class="btn" onclick="printCertificate()">🖨️ Print / Save PDF</button>
-            <button class="btn" onclick="location.reload()">🏠 Play Again</button>
+            <a href="../numbers/" class="btn btn-secondary" style="margin-top: 0; width: auto; flex: 1; min-width: 200px; max-width: 280px;">🔢 Go to Numbers</a>
+            <button class="btn btn-secondary" onclick="location.reload()">🏠 Play Again</button>
         </div>
     </div>
 
     <!-- ============ PRACTICE RESULT (No Certificate) ============ -->
     <div id="screen-practice-result" class="screen">
         <div class="practice-card">
-            <div style="font-size: 80px; margin-bottom: 10px;">🐝</div>
+            <div style="font-size: 80px; margin-bottom: 10px;">📚</div>
             <div class="practice-title">Practice Complete!</div>
             <div class="practice-score" id="practice-score-display">0</div>
             <div class="practice-sub" id="practice-sub-display">Great effort!</div>
@@ -554,19 +546,17 @@
             </div>
 
             <button class="btn" onclick="location.reload()">🔄 Back to Menu</button>
+            <a href="../numbers/" class="btn btn-secondary" style="margin-top: 10px;">🔢 Switch to Numbers</a>
         </div>
     </div>
 
-	<button id="installBtn" onclick="installApp()" style="display: none;">
-	📲 Install App
-	</button>
     <footer class="site-footer">Created by Tutor Bahasa 2026</footer>
 
     <script>
         /* ============ BACKGROUND ============ */
-        const bgEmojis = ['📖', '⚽', '🎨', '🏊', '💃', '🎤', '🧱', '✍️', '🍽️', '🛏️', '📚', '🐝', '🍯', '⭐'];
+        const bgEmojis = ['📖', '⚽', '🎨', '🏊', '💃', '🎤', '🧱', '✍️', '🍽️', '🛏️', '📚', '🐝'];
         const bgContainer = document.getElementById('bg-animation');
-        for (let i = 0; i < 20; i++) {
+        for (let i = 0; i < 15; i++) {
             const span = document.createElement('span');
             span.className = 'float-emoji';
             span.innerText = bgEmojis[Math.floor(Math.random() * bgEmojis.length)];
@@ -585,10 +575,7 @@
             { id: "menari", word: "Menari", emoji: "💃", audio: "audio/menari.mp3", image: "images/menari.png", sentence: "audio/dia-menari.mp3" },
             { id: "menyanyi", word: "Menyanyi", emoji: "🎤", audio: "audio/menyanyi.mp3", image: "images/menyanyi.png", sentence: "audio/dia-menyanyi.mp3" },
             { id: "lego", word: "Bermain lego", emoji: "🧱", audio: "audio/lego.mp3", image: "images/lego.png", sentence: "audio/dia-lego.mp3" },
-            { id: "menulis", word: "Menulis", emoji: "✍️", audio: "audio/menulis.mp3", image: "images/menulis.png", sentence: "audio/dia-menulis.mp3" },
-            { id: "makan", word: "Makan", emoji: "🍽️", audio: "audio/makan.mp3", image: "images/makan.png", sentence: "audio/dia-makan.mp3" },
-            { id: "tidur", word: "Tidur", emoji: "🛏️", audio: "audio/tidur.mp3", image: "images/tidur.png", sentence: "audio/dia-tidur.mp3" },
-            { id: "belajar", word: "Belajar", emoji: "📚", audio: "audio/belajar.mp3", image: "images/belajar.png", sentence: "audio/dia-belajar.mp3" }
+            { id: "menulis", word: "Menulis", emoji: "✍️", audio: "audio/menulis.mp3", image: "images/menulis.png", sentence: "audio/dia-menulis.mp3" }
         ];
 
         const LIKE_AUDIO = "audio/suka.mp3";
@@ -596,6 +583,7 @@
 
         let studentName = "";
         let studentClass = "";
+        let schoolName = "Amed Honeycomb School";
         let activityMode = 'standard';
         let gameQuestions = [];
         let currentIndex = 0;
@@ -605,12 +593,51 @@
         let currentAttempt = 1;
         let TOTAL_Q = 28;
 
-        // Skill Tracking
         let skillStats = {
             listening: { score: 0, total: 0 },
             reading: { score: 0, total: 0 },
             writing: { score: 0, total: 0 }
         };
+
+        /* ============ SCHOOL DROPDOWN LOGIC ============ */
+        const SCHOOL_STORAGE_KEY = 'bipa_custom_schools';
+
+        function loadSavedSchools() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(SCHOOL_STORAGE_KEY) || '[]');
+                const select = document.getElementById('inp-school-select');
+                const otherOption = select.querySelector('option[value="other"]');
+                saved.forEach(school => {
+                    if (school && school !== 'Amed Honeycomb School') {
+                        const opt = document.createElement('option');
+                        opt.value = school;
+                        opt.textContent = school;
+                        select.insertBefore(opt, otherOption);
+                    }
+                });
+            } catch (e) { console.warn('Load schools failed:', e); }
+        }
+
+        function saveSchoolOption(school) {
+            if (!school || school === 'Amed Honeycomb School') return;
+            try {
+                const saved = JSON.parse(localStorage.getItem(SCHOOL_STORAGE_KEY) || '[]');
+                if (!saved.includes(school)) {
+                    saved.push(school);
+                    localStorage.setItem(SCHOOL_STORAGE_KEY, JSON.stringify(saved));
+                }
+            } catch (e) { console.warn('Save school failed:', e); }
+        }
+
+        document.getElementById('inp-school-select').addEventListener('change', (e) => {
+            const custom = document.getElementById('inp-school-custom');
+            if (e.target.value === 'other') {
+                custom.style.display = 'block';
+                custom.focus();
+            } else {
+                custom.style.display = 'none';
+            }
+        });
 
         /* ============ AUDIO CACHE & PLAYER ============ */
         const audioCache = {};
@@ -801,7 +828,6 @@
             let qs = [];
             activityMode = document.getElementById('inp-mode').value;
             
-            // Reset skill stats
             skillStats = {
                 listening: { score: 0, total: 0 },
                 reading: { score: 0, total: 0 },
@@ -866,7 +892,6 @@
                 TOTAL_Q = 10;
             }
             else {
-                // Standard Mode
                 TOTAL_Q = 28;
                 for(let i=0; i<5; i++) {
                     const v = vocabulary[Math.floor(Math.random() * vocabulary.length)];
@@ -915,8 +940,24 @@
 
         /* ============ START QUIZ ============ */
         function startQuiz() {
+            const schoolSelect = document.getElementById('inp-school-select').value;
+            const customSchool = document.getElementById('inp-school-custom').value.trim();
+            
+            if (schoolSelect === 'other') {
+                if (!customSchool) {
+                    alert("Please enter your school name 🌟");
+                    document.getElementById('inp-school-custom').focus();
+                    return;
+                }
+                schoolName = customSchool;
+                saveSchoolOption(customSchool);
+            } else {
+                schoolName = schoolSelect;
+            }
+            
             studentName = document.getElementById('inp-name').value.trim();
             studentClass = document.getElementById('inp-class').value.trim();
+            
             if (!studentName || !studentClass) {
                 alert("Please enter your Name and Class 🌟");
                 return;
@@ -1003,7 +1044,6 @@
             const instr = document.getElementById('instruction-text');
             instr.classList.remove('retry');
 
-            // Track Max Skill Points
             if (['listen', 'match', 'true-false', 'like'].includes(q.type)) skillStats.listening.total++;
             else if (q.type === 'audio-text') skillStats.reading.total++;
             else if (q.type === 'missing-letters') skillStats.writing.total++;
@@ -1376,7 +1416,7 @@
             setTimeout(() => el.remove(), 1300);
         }
 
-        /* ============ PRACTICE RESULT (No Certificate) ============ */
+        /* ============ PRACTICE RESULT ============ */
         function showPracticeResult() {
             document.getElementById('screen-quiz').classList.remove('active');
             document.getElementById('screen-practice-result').classList.add('active');
@@ -1422,6 +1462,7 @@
             });
             const certId = 'AH-' + Date.now().toString(36).toUpperCase().slice(-6);
             
+            document.getElementById('rep-school').innerText = schoolName;
             document.getElementById('rep-name').innerText = studentName;
             document.getElementById('rep-class').innerText = studentClass;
             document.getElementById('rep-date').innerText = today;
@@ -1438,7 +1479,6 @@
             }
             document.getElementById('rep-stars').innerHTML = starsHTML;
 
-            // Show breakdown ONLY if Full Mode
             const bdBox = document.getElementById('cert-breakdown');
             if (activityMode === 'full') {
                 bdBox.style.display = 'block';
@@ -1460,11 +1500,10 @@
                 bdBox.style.display = 'none';
             }
 
-            // Generate QR Code
             const qrDiv = document.getElementById('qrcode');
             qrDiv.innerHTML = ""; 
             if (typeof QRCode !== 'undefined') {
-                const qrData = `Name: ${studentName}\nClass: ${studentClass}\nScore: ${finalScore}/100\nDate: ${today}`;
+                const qrData = `School: ${schoolName}\nName: ${studentName}\nClass: ${studentClass}\nScore: ${finalScore}/100\nDate: ${today}`;
                 new QRCode(qrDiv, {
                     text: qrData,
                     width: 80,
@@ -1481,66 +1520,29 @@
         /* ============ PRINT PDF ============ */
         function printCertificate() {
             const originalTitle = document.title;
-
             const safeName = (studentName || 'Student')
                 .trim()
                 .replace(/[^a-zA-Z0-9\s]/g, '')   
                 .replace(/\s+/g, '_');             
-
             const today = new Date().toISOString().slice(0, 10);
-            document.title = `BIPA_Certificate_${safeName}_${today}`;
-
+            document.title = `BIPA_Hobbies_${safeName}_${today}`;
             window.print();
-
-            setTimeout(() => {
-                document.title = originalTitle;
-            }, 1000);
+            setTimeout(() => { document.title = originalTitle; }, 1000);
         }
-		
-				/* ============ PWA — SERVICE WORKER & INSTALL ============ */
-		if ('serviceWorker' in navigator) {
-			window.addEventListener('load', () => {
-				navigator.serviceWorker.register('./sw.js')
-					.then(reg => console.log('✅ Service Worker registered:', reg.scope))
-					.catch(err => console.warn('❌ SW failed:', err));
-			});
-		}
 
-		let deferredPrompt = null;
+        /* ============ PWA REGISTRATION ============ */
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('../sw.js')
+                    .then(reg => console.log('✅ SW registered:', reg.scope))
+                    .catch(err => console.warn('❌ SW failed:', err));
+            });
+        }
 
-		window.addEventListener('beforeinstallprompt', (e) => {
-			e.preventDefault();
-			deferredPrompt = e;
-			document.getElementById('installBtn').style.display = 'block';
-		});
-
-		window.addEventListener('appinstalled', () => {
-			deferredPrompt = null;
-			document.getElementById('installBtn').style.display = 'none';
-			console.log('✅ PWA installed successfully');
-		});
-
-		function installApp() {
-			if (!deferredPrompt) {
-				alert('To install: tap browser menu (⋮) → "Add to Home Screen"');
-				return;
-			}
-			deferredPrompt.prompt();
-			deferredPrompt.userChoice.then((choice) => {
-				console.log('User choice:', choice.outcome);
-				deferredPrompt = null;
-				document.getElementById('installBtn').style.display = 'none';
-			});
-		}
-
-		// Hide install button if already installed (standalone mode)
-		if (window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone === true) {
-			document.addEventListener('DOMContentLoaded', () => {
-				const btn = document.getElementById('installBtn');
-				if (btn) btn.style.display = 'none';
-			});
-		}
-		
+        /* ============ INIT ============ */
+        window.addEventListener('load', () => {
+            loadSavedSchools();
+        });
     </script>
 </body>
 </html>
