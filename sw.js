@@ -1,18 +1,19 @@
 /* ============ SERVICE WORKER - TUTOR BAHASA ============ */
-const CACHE_VERSION = 'tutorbahasa-v3';
+const CACHE_VERSION = 'tutorbahasa-v4';
 
 // File inti yang WAJIB disimpan saat pertama kali install
 const CORE_ASSETS = [
   './',
-  './index.html', 
+  './index.html',
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
   './hobbies/',
   './hobbies/index.html',
   './numbers/',
-  './numbers/index.html'
-  // Nanti jika dashboard sudah ada, tambahkan: './dashboard.html'
+  './numbers/index.html',
+  './daily-activities/',           // ← TAMBAH
+  './daily-activities/index.html'  // ← TAMBAH
 ];
 
 // 1. INSTALL: Simpan file inti ke cache
