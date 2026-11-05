@@ -1,75 +1,67 @@
-/* ============ SERVICE WORKER - BIPA QUIZ ============ */
+/* ============ SERVICE WORKER - TUTOR BAHASA ============ */
 const CACHE_VERSION = 'tutorbahasa-v1';
 
-const PRECACHE_ASSETS = [
+// File inti yang WAJIB disimpan saat pertama kali install
+const CORE_ASSETS = [
   './',
-  './index.html',
-  // Audio - Words
-  './audio/membaca.mp3', './audio/berenang.mp3', './audio/melukis.mp3',
-  './audio/bola.mp3', './audio/menari.mp3', './audio/menyanyi.mp3',
-  './audio/lego.mp3', './audio/menulis.mp3', './audio/makan.mp3',
-  './audio/tidur.mp3', './audio/belajar.mp3',
-  // Audio - Sentences
-  './audio/dia-membaca.mp3', './audio/dia-berenang.mp3', './audio/dia-melukis.mp3',
-  './audio/dia-bola.mp3', './audio/dia-menari.mp3', './audio/dia-menyanyi.mp3',
-  './audio/dia-lego.mp3', './audio/dia-menulis.mp3', './audio/dia-makan.mp3',
-  './audio/dia-tidur.mp3', './audio/dia-belajar.mp3',
-  // Audio - Prefixes
-  './audio/suka.mp3', './audio/tidak_suka.mp3',
-  // Images
-  './images/membaca.png', './images/berenang.png', './images/melukis.png',
-  './images/bola.png', './images/menari.png', './images/menyanyi.png',
-  './images/lego.png', './images/menulis.png', './images/makan.png',
-  './images/tidur.png', './images/belajar.png',
-  // Icons
-  './images/icon-192.png', './images/icon-512.png',
-  // External CDN
-  'https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js'
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png',
+  './hobbies/',
+  './hobbies/index.html',
+  './numbers/',
+  './numbers/index.html'
+  // Nanti jika dashboard sudah ada, tambahkan: './dashboard.html'
 ];
 
-// Install — cache all assets
+// 1. INSTALL: Simpan file inti ke cache
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_VERSION).then((cache) => {
-      return Promise.allSettled(
-        PRECACHE_ASSETS.map(url =>
-          cache.add(url).catch(err => console.warn('⚠️ Failed to cache:', url, err))
-        )
-      );
+      console.log('📦 Caching core assets');
+      return cache.addAll(CORE_ASSETS);
     }).then(() => self.skipWaiting())
   );
 });
 
-// Activate — clean old caches
+// 2. ACTIVATE: Hapus cache lama jika ada update versi
 self.addEventListener('activate', (event) => {
   event.waitUntil(
-    caches.keys().then((keys) =>
-      Promise.all(
+    caches.keys().then((keys) => {
+      return Promise.all(
         keys.filter(key => key !== CACHE_VERSION).map(key => caches.delete(key))
-      )
-    ).then(() => self.clients.claim())
+      );
+    }).then(() => self.clients.claim())
   );
 });
 
-// Fetch — cache first, then network
+// 3. FETCH: Strategi "Cache First, Network Fallback" + Dynamic Caching
 self.addEventListener('fetch', (event) => {
+  // Hanya tangani request GET (abaikan POST, dll)
   if (event.request.method !== 'GET') return;
+  
+  // Abaikan request dari ekstensi browser
   if (event.request.url.startsWith('chrome-extension://')) return;
 
   event.respondWith(
-    caches.match(event.request).then((cached) => {
-      if (cached) return cached;
-      return fetch(event.request).then((response) => {
-        if (response && response.status === 200) {
-          const clone = response.clone();
-          caches.open(CACHE_VERSION).then(cache => {
-            cache.put(event.request, clone).catch(() => {});
+    caches.match(event.request).then((cachedResponse) => {
+      // Jika ada di cache, langsung kembalikan (Offline Mode)
+      if (cachedResponse) return cachedResponse;
+
+      // Jika tidak ada di cache, ambil dari internet
+      return fetch(event.request).then((networkResponse) => {
+        // Simpan file baru (misal audio/gambar yang baru diakses) ke cache otomatis
+        if (networkResponse && networkResponse.status === 200) {
+          const responseClone = networkResponse.clone();
+          caches.open(CACHE_VERSION).then((cache) => {
+            cache.put(event.request, responseClone);
           });
         }
-        return response;
+        return networkResponse;
       }).catch(() => {
+        // Jika internet mati DAN file tidak ada di cache, tampilkan fallback
         if (event.request.mode === 'navigate') {
-          return caches.match('./index.html');
+          return caches.match('./hobbies/index.html'); // Fallback halaman
         }
       });
     })
