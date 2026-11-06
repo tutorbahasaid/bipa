@@ -1,14 +1,18 @@
 {
-  "name": "Tutor Bahasa - BIPA Kids",
-  "short_name": "BIPA Kids",
-  "description": "Fun BIPA vocabulary quizzes for kids: Hobbies, Numbers, Daily Activities, and more.",
-  "id": "/kids/",
+  "name": "Tutor Bahasa - BIPA Kids & Adult",
+  "short_name": "Tutor Bahasa",
+  "description": "Learn Indonesian the fun way — BIPA vocabulary quizzes for kids and adult proficiency tests (Listening, Reading, Grammar, Writing).",
+  "id": "./",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "orientation": "portrait",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
   "background_color": "#ffffff",
   "theme_color": "#fbbf24",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "productivity"],
   "icons": [
     {
       "src": "icon-192.png",
@@ -33,6 +37,29 @@
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "maskable"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Satu Langkah (Flashcards)",
+      "short_name": "Flashcards",
+      "description": "BIPA phrase flashcards",
+      "url": "./satu-langkah/",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Word Builder",
+      "short_name": "Word Builder",
+      "description": "Build Indonesian vocabulary",
+      "url": "./word-builder/",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Skills Check",
+      "short_name": "Skills Check",
+      "description": "Test your Indonesian proficiency",
+      "url": "./cek-kemahiran/",
+      "icons": [{ "src": "icon-192.png", "sizes": "192x192" }]
     }
   ]
 }
