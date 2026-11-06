@@ -1,5 +1,5 @@
 /* ============ SERVICE WORKER - TUTOR BAHASA ============ */
-const CACHE_VERSION = 'tutorbahasa-v7';
+const CACHE_VERSION = 'tutorbahasa-v8';
 
 // File inti yang WAJIB disimpan saat pertama kali install
 const CORE_ASSETS = [
@@ -14,6 +14,8 @@ const CORE_ASSETS = [
   './numbers/index.html',
   './daily-activities/',           // ← TAMBAH
   './daily-activities/index.html'  // ← TAMBAH
+  './jobs/',
+  './jobs/index.html'
 ];
 
 // 1. INSTALL: Simpan file inti ke cache
