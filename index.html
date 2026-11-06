@@ -14,15 +14,16 @@
     <link rel="icon" type="image/png" href="icon-192.png">
     <meta name="google" content="notranslate">
     <style>
-        :root {
-            --bg: #ffffff; --bg-soft: #fafafa; --bg-tint: #fffbeb;
-            --text: #1a1a1a; --text-soft: #4b5563; --text-muted: #6b7280; --text-light: #9ca3af;
-            --yellow: #fbbf24; --yellow-dark: #f59e0b; --yellow-bright: #fde047; --yellow-text: #422006; --yellow-glow: rgba(251, 191, 36, 0.4);
-            --blue: #3b82f6; --blue-bright: #60a5fa; --blue-dark: #1e40af; --blue-soft: #dbeafe; --blue-glow: rgba(59, 130, 246, 0.35);
-            --green: #22c55e; --green-dark: #15803d; --green-soft: #f0fdf4;
-            --red: #ef4444; --border-light: #e5e7eb; --border-soft-gold: rgba(251, 191, 36, 0.3);
-            --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04); --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06); --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.08);
-        }
+	:root {
+		--bg: #ffffff; --bg-soft: #fafafa; --bg-tint: #fffbeb;
+		--text: #1a1a1a; --text-soft: #4b5563; --text-muted: #6b7280; --text-light: #9ca3af;
+		--yellow: #fbbf24; --yellow-dark: #f59e0b; --yellow-bright: #fde047; --yellow-text: #422006; --yellow-glow: rgba(251, 191, 36, 0.4);
+		--blue: #3b82f6; --blue-bright: #60a5fa; --blue-dark: #1e40af; --blue-soft: #dbeafe; --blue-glow: rgba(59, 130, 246, 0.35);
+		--green: #22c55e; --green-dark: #15803d; --green-soft: #f0fdf4;
+		--purple: #9333ea; --purple-dark: #7e22ce; --purple-bright: #c084fc; --purple-soft: #f3e8ff;   /* ← TAMBAH BARIS INI */
+		--red: #ef4444; --border-light: #e5e7eb; --border-soft-gold: rgba(251, 191, 36, 0.3);
+		--shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04); --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06); --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.08);
+	}
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: 'Fredoka', system-ui, sans-serif;
@@ -129,6 +130,13 @@
                 <div class="quiz-title">Daily Activities</div>
                 <div class="quiz-desc">Learn daily routines<br>with audio & time</div>
             </a>
+			<a href="jobs/" class="quiz-card" style="background: linear-gradient(180deg, #ffffff 0%, #faf5ff 100%);">
+				<span class="quiz-badge" style="background: var(--purple); color: #fff;">🎯 Ready</span>
+				<div class="quiz-icon" style="background: linear-gradient(135deg, #d8b4fe, var(--purple));">💼</div>
+				<div class="quiz-title">Jobs</div>
+				<div class="quiz-desc">Explore professions<br>and workplaces</div>
+			</a>
+			
         </div>
 
         <div class="section-label coming">🚧 Coming Soon</div>
@@ -138,11 +146,7 @@
                 <div class="coming-title">Parts of Body</div>
                 <div class="coming-tag">Soon</div>
             </div>
-            <div class="coming-card">
-                <div class="coming-icon">👨‍⚕️</div>
-                <div class="coming-title">Jobs</div>
-                <div class="coming-tag">Soon</div>
-            </div>
+            
         </div>
 
         <div class="info-banner">
