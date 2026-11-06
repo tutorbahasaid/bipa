@@ -1,7 +1,6 @@
-/* ============ SERVICE WORKER - TUTOR BAHASA ============ */
-const CACHE_VERSION = 'tutorbahasa-v8';
+/* ============ SERVICE WORKER - TUTOR BAHASA (BIPA KIDS) ============ */
+const CACHE_VERSION = 'tutorbahasa-v18';
 
-// File inti yang WAJIB disimpan saat pertama kali install
 const CORE_ASSETS = [
   './',
   './index.html',
@@ -12,13 +11,13 @@ const CORE_ASSETS = [
   './hobbies/index.html',
   './numbers/',
   './numbers/index.html',
-  './daily-activities/',           // ← TAMBAH
-  './daily-activities/index.html'  // ← TAMBAH
+  './daily-activities/',
+  './daily-activities/index.html',
   './jobs/',
   './jobs/index.html'
 ];
 
-// 1. INSTALL: Simpan file inti ke cache
+/* 1. INSTALL: Simpan file inti ke cache */
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_VERSION).then((cache) => {
@@ -28,7 +27,7 @@ self.addEventListener('install', (event) => {
   );
 });
 
-// 2. ACTIVATE: Hapus cache lama jika ada update versi
+/* 2. ACTIVATE: Hapus cache lama jika ada update versi */
 self.addEventListener('activate', (event) => {
   event.waitUntil(
     caches.keys().then((keys) => {
@@ -39,22 +38,16 @@ self.addEventListener('activate', (event) => {
   );
 });
 
-// 3. FETCH: Strategi "Cache First, Network Fallback" + Dynamic Caching
+/* 3. FETCH: Strategi "Cache First, Network Fallback" + Dynamic Caching */
 self.addEventListener('fetch', (event) => {
-  // Hanya tangani request GET (abaikan POST, dll)
   if (event.request.method !== 'GET') return;
-  
-  // Abaikan request dari ekstensi browser
   if (event.request.url.startsWith('chrome-extension://')) return;
 
   event.respondWith(
     caches.match(event.request).then((cachedResponse) => {
-      // Jika ada di cache, langsung kembalikan (Offline Mode)
       if (cachedResponse) return cachedResponse;
 
-      // Jika tidak ada di cache, ambil dari internet
       return fetch(event.request).then((networkResponse) => {
-        // Simpan file baru (misal audio/gambar yang baru diakses) ke cache otomatis
         if (networkResponse && networkResponse.status === 200) {
           const responseClone = networkResponse.clone();
           caches.open(CACHE_VERSION).then((cache) => {
@@ -63,9 +56,8 @@ self.addEventListener('fetch', (event) => {
         }
         return networkResponse;
       }).catch(() => {
-        // Jika internet mati DAN file tidak ada di cache, tampilkan fallback
         if (event.request.mode === 'navigate') {
-          return caches.match('./hobbies/index.html'); // Fallback halaman
+          return caches.match('./index.html');
         }
       });
     })
