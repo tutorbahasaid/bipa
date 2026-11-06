@@ -1,5 +1,5 @@
 /* ============ SERVICE WORKER - TUTOR BAHASA (BIPA KIDS) ============ */
-const CACHE_VERSION = 'tutorbahasa-v18';
+const CACHE_VERSION = 'tutorbahasa-v33';
 
 const CORE_ASSETS = [
   './',
