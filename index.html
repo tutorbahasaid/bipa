@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tutor Bahasa · BIPA Kids</title>
+    <title>Tutor Bahasa · BIPA Kids & Adult</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Fredoka:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
@@ -22,6 +22,8 @@
             --blue: #3b82f6; --blue-bright: #60a5fa; --blue-dark: #1e40af; --blue-soft: #dbeafe; --blue-glow: rgba(59, 130, 246, 0.35);
             --green: #22c55e; --green-dark: #15803d; --green-soft: #f0fdf4;
             --purple: #9333ea; --purple-dark: #7e22ce; --purple-bright: #c084fc; --purple-soft: #f3e8ff;
+            --teal: #14b8a6; --teal-dark: #0f766e; --teal-bright: #5eead4; --teal-soft: #ccfbf1;
+            --indigo: #6366f1; --indigo-dark: #4338ca; --indigo-bright: #a5b4fc; --indigo-soft: #e0e7ff;
             --red: #ef4444; --border-light: #e5e7eb; --border-soft-gold: rgba(251, 191, 36, 0.3);
             --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04); --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.06); --shadow-lg: 0 20px 60px rgba(0, 0, 0, 0.08);
         }
@@ -49,6 +51,7 @@
         .section-label { font-family: 'Baloo 2', sans-serif; font-size: 14px; font-weight: 800; color: var(--text-muted); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; display: flex; align-items: center; gap: 8px; }
         .section-label::before { content: ''; width: 4px; height: 18px; border-radius: 2px; background: linear-gradient(180deg, var(--yellow), var(--yellow-dark)); }
         .section-label.coming::before { background: linear-gradient(180deg, var(--text-light), var(--text-muted)); }
+        .section-label.adult::before { background: linear-gradient(180deg, var(--teal), var(--teal-dark)); }
         .quiz-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-bottom: 40px; }
         .quiz-card { background: #ffffff; border-radius: 24px; padding: 32px 24px; border: 2px solid var(--border-light); text-decoration: none; color: inherit; display: flex; flex-direction: column; align-items: center; text-align: center; position: relative; overflow: hidden; transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); box-shadow: var(--shadow-sm); cursor: pointer; }
         .quiz-card::after { content: '→'; position: absolute; bottom: 20px; right: 24px; font-size: 24px; font-weight: 800; color: var(--yellow-dark); opacity: 0; transform: translateX(-8px); transition: all 0.3s; }
@@ -110,11 +113,12 @@
     <div class="container">
         <header class="hero">
             <div class="hero-bee">🐝</div>
-            <h1 class="hero-title">BIPA <span class="accent">Kids</span></h1>
-            <p class="hero-sub">Fun Indonesian learning for young explorers</p>
+            <h1 class="hero-title">BIPA <span class="accent">Kids & Adult</span></h1>
+            <p class="hero-sub">Fun Indonesian learning for all ages</p>
         </header>
 
-        <div class="section-label">📚 Available Topics</div>
+        <!-- ===== BIPA KIDS ===== -->
+        <div class="section-label">📚 BIPA Kids</div>
         <div class="quiz-grid">
             <a href="colors/" class="quiz-card" style="background: linear-gradient(180deg, #ffffff 0%, #fff7ed 100%);">
                 <span class="quiz-badge" style="background: var(--orange); color: #fff;">🎯 Ready</span>
@@ -148,12 +152,35 @@
             </a>
         </div>
 
+        <!-- ===== BIPA ADULT ===== -->
+        <div class="section-label adult">🎓 BIPA Adult</div>
+        <div class="quiz-grid">
+            <a href="satu-langkah/" class="quiz-card" style="background: linear-gradient(180deg, #ffffff 0%, #f0fdfa 100%);">
+                <span class="quiz-badge" style="background: var(--teal); color: #fff;">🎯 Ready</span>
+                <div class="quiz-icon" style="background: linear-gradient(135deg, var(--teal-bright), var(--teal-dark));">💬</div>
+                <div class="quiz-title">Satu Langkah</div>
+                <div class="quiz-desc">BIPA · Indonesian Phrases<br>Flashcards & Vocabulary</div>
+            </a>
+            <a href="word-builder/" class="quiz-card" style="background: linear-gradient(180deg, #ffffff 0%, #eef2ff 100%);">
+                <span class="quiz-badge" style="background: var(--indigo); color: #fff;">🎯 Ready</span>
+                <div class="quiz-icon" style="background: linear-gradient(135deg, var(--indigo-bright), var(--indigo-dark));">🧩</div>
+                <div class="quiz-title">Word Builder</div>
+                <div class="quiz-desc">Build Indonesian Vocabulary<br>Root word → derivatives</div>
+            </a>
+        </div>
+
+        <!-- ===== COMING SOON ===== -->
         <div class="section-label coming">🚧 Coming Soon</div>
         <div class="coming-grid">
             <div class="coming-card">
                 <div class="coming-icon">👁️</div>
                 <div class="coming-title">Parts of Body</div>
                 <div class="coming-tag">Soon</div>
+            </div>
+            <div class="coming-card">
+                <div class="coming-icon">📝</div>
+                <div class="coming-title">Grammar Essentials</div>
+                <div class="coming-tag">BIPA Adult · Soon</div>
             </div>
         </div>
 
@@ -165,9 +192,9 @@
     </div>
 
     <script>
-        const bgEmojis = ['📚', '🔢', '🌅', '👁️', '👨‍⚕️', '⭐', '🐝', '🍯', '✨', '🎯', '🎨'];
+        const bgEmojis = ['📚', '🔢', '🌅', '👁️', '👨‍⚕️', '⭐', '🐝', '🍯', '✨', '🎯', '🎨', '💬', '🧩', '🎓'];
         const bgContainer = document.getElementById('bg-animation');
-        for (let i = 0; i < 18; i++) {
+        for (let i = 0; i < 20; i++) {
             const span = document.createElement('span');
             span.className = 'float-emoji';
             span.innerText = bgEmojis[Math.floor(Math.random() * bgEmojis.length)];
