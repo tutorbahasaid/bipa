@@ -1,5 +1,5 @@
 /* ============ SERVICE WORKER - TUTOR BAHASA (BIPA KIDS) ============ */
-const CACHE_VERSION = 'tutorbahasa-v33';
+const CACHE_VERSION = 'tutorbahasa-v34';
 
 const CORE_ASSETS = [
   './',
@@ -7,6 +7,8 @@ const CORE_ASSETS = [
   './manifest.json',
   './icon-192.png',
   './icon-512.png',
+  './colors/',
+  './colors/index.html',
   './hobbies/',
   './hobbies/index.html',
   './numbers/',
