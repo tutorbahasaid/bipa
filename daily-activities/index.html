@@ -96,9 +96,11 @@
         @keyframes speakerPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
         @keyframes ringPulse { 0% { opacity: 0.8; transform: scale(0.9); } 100% { opacity: 0; transform: scale(1.4); } }
         .image-frame { border-radius: 24px; overflow: hidden; border: 4px solid var(--yellow); box-shadow: 0 10px 30px rgba(251, 191, 36, 0.2); background: #ffffff; display: flex; justify-content: center; align-items: center; margin: 0 auto 24px; position: relative; }
-        .image-frame img { width: 100%; height: 100%; object-fit: contain; padding: 10px; }
-        .image-frame.option-img { margin: 0 auto; border-width: 2px; border-color: var(--border-soft); border-radius: 16px; }
+        .image-frame img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
+        /* ✅ REVISI: option-img pakai aspect-ratio 1:1 (sama seperti Jobs Edition) */
+        .image-frame.option-img { margin: 0; width: 100%; aspect-ratio: 1 / 1; height: auto; border-width: 2px; border-color: var(--border-soft); border-radius: 14px; }
         .image-frame.option-img:hover { border-color: var(--yellow); }
+        .image-frame.option-img img { padding: 4px; }
         .digital-clock { font-family: 'Baloo 2', 'Fredoka', sans-serif; font-size: 56px; font-weight: 800; background: #ffffff; color: var(--blue-dark); padding: 16px 40px; border-radius: 20px; letter-spacing: 6px; border: 4px solid var(--blue); box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2); display: inline-block; line-height: 1; }
         .digital-clock.small { font-size: 28px; padding: 10px 22px; letter-spacing: 3px; border-width: 3px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15); }
         .tf-display { display: flex; flex-direction: column; align-items: center; gap: 12px; margin-bottom: 20px; }
@@ -123,13 +125,14 @@
         .missing-word.wrong { animation: shake 0.5s; }
         .vowel-btn { background: #ffffff; border: 3px solid var(--border-light); border-radius: 18px; padding: 18px; min-width: 76px; min-height: 76px; font-family: 'Baloo 2', sans-serif; font-size: 30px; font-weight: 800; color: var(--text); cursor: pointer; transition: all 0.2s; }
         .vowel-btn:hover:not(:disabled) { border-color: var(--yellow); background: var(--bg-tint); transform: translateY(-3px); }
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
         .options-grid.single-col { grid-template-columns: 1fr; gap: 12px; }
-        .option-card { background: #ffffff; border: 2px solid var(--border-light); border-radius: 22px; padding: 16px; cursor: pointer; transition: all 0.2s; display: flex; justify-content: center; align-items: center; min-height: 130px; position: relative; }
+        /* ✅ REVISI: padding lebih kecil & min-height auto supaya gambar bisa besar */
+        .option-card { background: #ffffff; border: 2px solid var(--border-light); border-radius: 18px; padding: 8px; cursor: pointer; transition: all 0.2s; display: flex; justify-content: center; align-items: center; min-height: auto; position: relative; }
         .option-card:hover:not(.disabled-attempt) { border-color: var(--yellow); background: var(--bg-tint); transform: translateY(-3px); }
         .option-card.correct { background: var(--green-soft); border-color: var(--green); transform: scale(1.05); box-shadow: 0 0 30px rgba(34, 197, 94, 0.4); animation: correctPop 0.5s; }
         @keyframes correctPop { 0% { transform: scale(1); } 50% { transform: scale(1.15) rotate(3deg); } 100% { transform: scale(1.05); } }
-        .option-card.correct::after { content: '⭐'; position: absolute; top: 12px; right: 16px; font-size: 32px; animation: starSpin 0.6s; }
+        .option-card.correct::after { content: '⭐'; position: absolute; top: 8px; right: 12px; font-size: 32px; animation: starSpin 0.6s; }
         @keyframes starSpin { 0% { transform: scale(0) rotate(0deg); } 60% { transform: scale(1.5) rotate(180deg); } 100% { transform: scale(1) rotate(360deg); } }
         .option-card.wrong { background: var(--red-soft); border-color: var(--red); animation: shake 0.5s; }
         .option-card.disabled-attempt { opacity: 0.3; pointer-events: none; filter: grayscale(1); }
@@ -276,8 +279,11 @@
             .login-sub { font-size: 15px; }
             .login-mascot .bee { font-size: 72px; }
             .btn { font-size: 17px; padding: 16px 24px; }
-            .options-grid { gap: 10px; }
-            .option-card { padding: 12px; min-height: 100px; border-radius: 16px; }
+            /* ✅ REVISI: padding kartu & frame lebih kecil di mobile */
+            .options-grid { gap: 8px; }
+            .option-card { padding: 6px; border-radius: 14px; }
+            .image-frame.option-img { border-radius: 10px; }
+            .image-frame.option-img img { padding: 2px; }
             .audio-option-card { min-height: 130px; padding: 12px; }
             .audio-play-btn { width: 60px; height: 60px; font-size: 28px; }
             .speaker-btn { width: 100px; height: 100px; font-size: 44px; }
@@ -346,28 +352,28 @@
             </div>
             <div class="input-group">
                 <label>🎯 Activity Mode</label>
-				<select id="inp-mode" class="select-with-arrow">
-				<option value="standard">Standard Quiz (40 Questions)</option>
-				<option value="full">Full Assessment (110 Questions)</option>
-				<optgroup label="🎧 Practice: Listen & Match">
-					<option value="practice_listen">Listen & Pick Picture (11 Q)</option>
-					<option value="practice_match">Match Picture to Audio (11 Q)</option>
-				</optgroup>
-				<optgroup label="🎧 Practice: Listen & Understand">
-					<option value="practice_truefalse">True or False (11 Q)</option>
-					<option value="practice_askanswer">Ask & Answer (11 Q)</option>
-					<option value="practice_listenclock">Listen & Pick Clock (11 Q)</option>
-					<option value="practice_sentencefill">Sentence Fill (11 Q)</option>
-					<option value="practice_listeningmulti">Multi-Audio (11 Q)</option>
-				</optgroup>
-				<optgroup label="📖 Practice: Reading">
-					<option value="practice_audio_text">Audio to Word (11 Q)</option>
-					<option value="practice_sentence_match">Sentence Match (11 Q)</option>
-				</optgroup>
-				<optgroup label="✍️ Practice: Writing">
-					<option value="practice_missing_letters">Missing Letters (11 Q)</option>
-				</optgroup>
-			</select>
+                <select id="inp-mode" class="select-with-arrow">
+                    <option value="standard">Standard Quiz (40 Questions)</option>
+                    <option value="full">Full Assessment (110 Questions)</option>
+                    <optgroup label="🎧 Practice: Listen & Match">
+                        <option value="practice_listen">Listen & Pick Picture (11 Q)</option>
+                        <option value="practice_match">Match Picture to Audio (11 Q)</option>
+                    </optgroup>
+                    <optgroup label="🎧 Practice: Listen & Understand">
+                        <option value="practice_truefalse">True or False (11 Q)</option>
+                        <option value="practice_askanswer">Ask & Answer (11 Q)</option>
+                        <option value="practice_listenclock">Listen & Pick Clock (11 Q)</option>
+                        <option value="practice_sentencefill">Sentence Fill (11 Q)</option>
+                        <option value="practice_listeningmulti">Multi-Audio (11 Q)</option>
+                    </optgroup>
+                    <optgroup label="📖 Practice: Reading">
+                        <option value="practice_audio_text">Audio to Word (11 Q)</option>
+                        <option value="practice_sentence_match">Sentence Match (11 Q)</option>
+                    </optgroup>
+                    <optgroup label="✍️ Practice: Writing">
+                        <option value="practice_missing_letters">Missing Letters (11 Q)</option>
+                    </optgroup>
+                </select>
             </div>
             <button class="btn" onclick="startQuiz()">🚀 Start Adventure</button>
             <a href="../" class="btn btn-secondary" style="margin-top: 10px;">🏠 Back to Menu</a>
@@ -665,9 +671,16 @@
             return a[Math.floor(Math.random()*a.length)];
         }
         function formatClock(jam) { return String(jam).padStart(2,'0')+':00'; }
+        /* ✅ REVISI: activityImageTag mode opsi pakai CSS aspect-ratio, bukan fixed size */
         function activityImageTag(act, size, isOpt = false) {
-            const cls = isOpt ? 'image-frame option-img' : 'image-frame';
-            return `<div class="${cls}" style="width:${size}px;height:${size}px;"><img src="images/${act.id}.png" alt="${act.word}" onerror="this.parentNode.outerHTML='<span style=\\'font-size:${Math.round(size*0.55)}px;line-height:1;display:block;text-align:center;\\'>${act.emoji}</span>'"></div>`;
+            if (isOpt) {
+                return `<div class="image-frame option-img">
+                    <img src="images/${act.id}.png" alt="${act.word}" onerror="this.parentNode.outerHTML='<span style=\\'font-size:60px;line-height:1;display:flex;align-items:center;justify-content:center;width:100%;height:100%;\\'>${act.emoji}</span>'">
+                </div>`;
+            }
+            return `<div class="image-frame" style="width:${size}px;height:${size}px;">
+                <img src="images/${act.id}.png" alt="${act.word}" onerror="this.parentNode.outerHTML='<span style=\\'font-size:${Math.round(size*0.55)}px;line-height:1;display:block;text-align:center;\\'>${act.emoji}</span>'">
+            </div>`;
         }
         function revealAskAnswerJam(q) {
             const h = document.querySelector('.conv-jam-hidden');
@@ -759,7 +772,6 @@
                 writing: { score: 0, total: 0 }
             };
 
-            /* ===== FULL: 11 × 10 = 110 ===== */
             if (activityMode === 'full') {
                 ACTIVITIES.forEach(a => {
                     qs.push({ type: 'listen', id: a.id, word: a.word, emoji: a.emoji, naturalJam: a.naturalJam });
@@ -787,67 +799,65 @@
                     qs.push({ type: 'sentence-match', id: a.id, word: a.word, emoji: a.emoji, answerJam: a.naturalJam, correctSentence, options: [correctSentence, d1, d2, d3].sort(() => Math.random() - 0.5) });
                     qs.push(makeListeningMulti());
                 });
-                TOTAL_Q = qs.length; // 110
+                TOTAL_Q = qs.length;
             }
-            /* ===== PRACTICE: 11 soal per tipe (fokus ke satu skill) ===== */
-else if (activityMode.startsWith('practice_')) {
-    const t = activityMode.replace('practice_', '');
-    ACTIVITIES.forEach(a => {
-        switch(t) {
-            case 'listen':
-                qs.push({ type: 'listen', id: a.id, word: a.word, emoji: a.emoji, naturalJam: a.naturalJam });
-                break;
-            case 'match':
-                qs.push({ type: 'match', id: a.id, word: a.word, emoji: a.emoji, naturalJam: a.naturalJam });
-                break;
-            case 'audio_text':
-                qs.push({ type: 'audio-text', id: a.id, word: a.word, emoji: a.emoji, naturalJam: a.naturalJam });
-                break;
-            case 'missing_letters':
-                qs.push({ type: 'missing-letters', id: a.id, word: a.word, emoji: a.emoji, naturalJam: a.naturalJam });
-                break;
-            case 'truefalse': {
-                const displayJam = a.naturalJam;
-                const isTrue = Math.random() > 0.5;
-                let audioJam = displayJam;
-                if (!isTrue) { do { audioJam = randomJam([displayJam]); } while (audioJam === displayJam); }
-                qs.push({ type: 'true-false', id: a.id, word: a.word, emoji: a.emoji, displayJam, audioJam, isTrue });
-                break;
+            else if (activityMode.startsWith('practice_')) {
+                const t = activityMode.replace('practice_', '');
+                ACTIVITIES.forEach(a => {
+                    switch(t) {
+                        case 'listen':
+                            qs.push({ type: 'listen', id: a.id, word: a.word, emoji: a.emoji, naturalJam: a.naturalJam });
+                            break;
+                        case 'match':
+                            qs.push({ type: 'match', id: a.id, word: a.word, emoji: a.emoji, naturalJam: a.naturalJam });
+                            break;
+                        case 'audio_text':
+                            qs.push({ type: 'audio-text', id: a.id, word: a.word, emoji: a.emoji, naturalJam: a.naturalJam });
+                            break;
+                        case 'missing_letters':
+                            qs.push({ type: 'missing-letters', id: a.id, word: a.word, emoji: a.emoji, naturalJam: a.naturalJam });
+                            break;
+                        case 'truefalse': {
+                            const displayJam = a.naturalJam;
+                            const isTrue = Math.random() > 0.5;
+                            let audioJam = displayJam;
+                            if (!isTrue) { do { audioJam = randomJam([displayJam]); } while (audioJam === displayJam); }
+                            qs.push({ type: 'true-false', id: a.id, word: a.word, emoji: a.emoji, displayJam, audioJam, isTrue });
+                            break;
+                        }
+                        case 'askanswer':
+                            qs.push({ type: 'ask-answer', id: a.id, word: a.word, emoji: a.emoji, answerJam: a.naturalJam });
+                            break;
+                        case 'listenclock':
+                            qs.push({ type: 'listen-clock', id: a.id, word: a.word, emoji: a.emoji, answerJam: a.naturalJam });
+                            break;
+                        case 'sentencefill': {
+                            const fillType = Math.random() > 0.5 ? 'activity' : 'jam';
+                            qs.push({ type: 'sentence-fill', id: a.id, word: a.word, emoji: a.emoji, jam: a.naturalJam, fillType });
+                            break;
+                        }
+                        case 'sentence_match': {
+                            const correctSentence = `Aku ${a.word.toLowerCase()} jam ${a.naturalJam}`;
+                            const wrongJam = randomJam([a.naturalJam]);
+                            const d1 = `Aku ${a.word.toLowerCase()} jam ${wrongJam}`;
+                            const others = ACTIVITIES.filter(x => x.id !== a.id);
+                            const otherAct = others[Math.floor(Math.random()*others.length)];
+                            const d2 = `Aku ${otherAct.word.toLowerCase()} jam ${a.naturalJam}`;
+                            const otherAct2 = others[Math.floor(Math.random()*others.length)];
+                            const otherJam = randomJam([a.naturalJam]);
+                            const d3 = `Aku ${otherAct2.word.toLowerCase()} jam ${otherJam}`;
+                            qs.push({ type: 'sentence-match', id: a.id, word: a.word, emoji: a.emoji, answerJam: a.naturalJam, correctSentence, options: [correctSentence, d1, d2, d3].sort(() => Math.random() - 0.5) });
+                            break;
+                        }
+                        case 'listeningmulti': {
+                            const others = ACTIVITIES.filter(x => x.id !== a.id).sort(() => Math.random() - 0.5).slice(0, 2);
+                            qs.push(buildMultiQuestion([a, ...others]));
+                            break;
+                        }
+                    }
+                });
+                TOTAL_Q = 11;
             }
-            case 'askanswer':
-                qs.push({ type: 'ask-answer', id: a.id, word: a.word, emoji: a.emoji, answerJam: a.naturalJam });
-                break;
-            case 'listenclock':
-                qs.push({ type: 'listen-clock', id: a.id, word: a.word, emoji: a.emoji, answerJam: a.naturalJam });
-                break;
-            case 'sentencefill': {
-                const fillType = Math.random() > 0.5 ? 'activity' : 'jam';
-                qs.push({ type: 'sentence-fill', id: a.id, word: a.word, emoji: a.emoji, jam: a.naturalJam, fillType });
-                break;
-            }
-            case 'sentence_match': {
-                const correctSentence = `Aku ${a.word.toLowerCase()} jam ${a.naturalJam}`;
-                const wrongJam = randomJam([a.naturalJam]);
-                const d1 = `Aku ${a.word.toLowerCase()} jam ${wrongJam}`;
-                const others = ACTIVITIES.filter(x => x.id !== a.id);
-                const otherAct = others[Math.floor(Math.random()*others.length)];
-                const d2 = `Aku ${otherAct.word.toLowerCase()} jam ${a.naturalJam}`;
-                const otherAct2 = others[Math.floor(Math.random()*others.length)];
-                const otherJam = randomJam([a.naturalJam]);
-                const d3 = `Aku ${otherAct2.word.toLowerCase()} jam ${otherJam}`;
-                qs.push({ type: 'sentence-match', id: a.id, word: a.word, emoji: a.emoji, answerJam: a.naturalJam, correctSentence, options: [correctSentence, d1, d2, d3].sort(() => Math.random() - 0.5) });
-                break;
-            }
-            case 'listeningmulti': {
-                const others = ACTIVITIES.filter(x => x.id !== a.id).sort(() => Math.random() - 0.5).slice(0, 2);
-                qs.push(buildMultiQuestion([a, ...others]));
-                break;
-				}
-			}
-		});
-		TOTAL_Q = 11;
-		}
-            /* ===== STANDARD: 40 ===== */
             else {
                 TOTAL_Q = 40;
                 for (let i = 0; i < 4; i++) { const a = randomActivity(); qs.push({ type: 'listen', id: a.id, word: a.word, emoji: a.emoji, naturalJam: a.naturalJam }); }
@@ -865,7 +875,6 @@ else if (activityMode.startsWith('practice_')) {
             return qs.sort(() => Math.random() - 0.5);
         }
 
-        /* ============ START QUIZ ============ */
         function startQuiz() {
             const schoolSelect = document.getElementById('inp-school-select').value;
             const customSchool = document.getElementById('inp-school-custom').value.trim();
@@ -886,7 +895,6 @@ else if (activityMode.startsWith('practice_')) {
             loadQuestion();
         }
 
-        /* ============ XP PROGRESS ============ */
         function buildXPProgress() {
             const w = document.getElementById('xp-progress');
             w.innerHTML = '';
@@ -906,7 +914,6 @@ else if (activityMode.startsWith('practice_')) {
             else { label.textContent = 'LAST attempt!'; label.classList.add('danger'); }
         }
 
-        /* ============ LOAD QUESTION ============ */
         function loadQuestion() {
             if (currentIndex >= TOTAL_Q) {
                 if (activityMode.startsWith('practice')) return showPracticeResult();
@@ -1183,7 +1190,6 @@ else if (activityMode.startsWith('practice_')) {
             updateXPProgress();
         }
 
-        /* ============ SPEAKER ============ */
         function playVocabularyAudio() {
             const q = gameQuestions[currentIndex];
             const btn = document.getElementById('btn-speaker');
@@ -1197,7 +1203,6 @@ else if (activityMode.startsWith('practice_')) {
             else if (q.type === 'listening-multi') playMultiAll(btn);
         }
 
-        /* ============ CHECK ANSWER ============ */
         function checkAnswer(isCorrect, element) {
             if (!canClick) return;
             const q = gameQuestions[currentIndex];
@@ -1241,7 +1246,6 @@ else if (activityMode.startsWith('practice_')) {
             }
         }
 
-        /* ============ LISTENING MULTI HELPERS ============ */
         function playMultiAll(btn) {
             const q = window._currentMulti;
             if (!q || !q.clips || q.clips.length !== 3) return;
@@ -1348,7 +1352,6 @@ else if (activityMode.startsWith('practice_')) {
             }
         }
 
-        /* ============ UI EFFECTS ============ */
         function showTryAgainBanner() { const b = document.getElementById('try-again-banner'); b.classList.add('show'); setTimeout(() => b.classList.remove('show'), 2000); }
         function burstConfetti() {
             const c = document.getElementById('confetti-layer');
@@ -1366,7 +1369,6 @@ else if (activityMode.startsWith('practice_')) {
             setTimeout(() => el.remove(), 1300);
         }
 
-        /* ============ RESULTS ============ */
         function showPracticeResult() {
             document.getElementById('screen-quiz').classList.remove('active');
             document.getElementById('screen-practice-result').classList.add('active');
