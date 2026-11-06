@@ -8,7 +8,6 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Fredoka:wght@400;500;600;700&family=Playfair+Display:wght@700;900&display=swap" rel="stylesheet">
     
-    <!-- PWA Links (up one folder) -->
     <link rel="manifest" href="../manifest.json">
     <meta name="theme-color" content="#fbbf24">
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -131,9 +130,11 @@
         @keyframes ringPulse { 0% { opacity: 0.8; transform: scale(0.9); } 100% { opacity: 0; transform: scale(1.4); } }
 
         .image-frame { border-radius: 24px; overflow: hidden; border: 4px solid var(--yellow); box-shadow: 0 10px 30px rgba(251, 191, 36, 0.2), 0 4px 16px rgba(0, 0, 0, 0.08); background: #ffffff; display: flex; justify-content: center; align-items: center; margin: 0 auto 24px; position: relative; animation: cardFloat 3s infinite ease-in-out; transition: transform 0.3s; }
-        .image-frame img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; display: block; padding: 10px; }
-        .image-frame.option-img { margin: 0 auto; border-width: 2px; border-color: var(--border-soft); box-shadow: none; animation: none; border-radius: 16px; }
+        .image-frame img { width: 100%; height: 100%; object-fit: contain; pointer-events: none; display: block; padding: 8px; }
+        /* ✅ REVISI: option-img pakai aspect-ratio 1:1 (sama seperti Jobs Edition) */
+        .image-frame.option-img { margin: 0; width: 100%; aspect-ratio: 1 / 1; height: auto; border-width: 2px; border-color: var(--border-soft); box-shadow: none; animation: none; border-radius: 14px; }
         .image-frame.option-img:hover { border-color: var(--yellow); }
+        .image-frame.option-img img { padding: 4px; }
         @keyframes cardFloat { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
 
         .number-display { font-family: 'Baloo 2', sans-serif; font-size: 100px; font-weight: 800; color: var(--blue-dark); margin: 0 auto 24px; text-align: center; line-height: 1; }
@@ -151,19 +152,21 @@
         .vowel-btn:hover:not(:disabled) { border-color: var(--yellow); background: var(--bg-tint); transform: translateY(-3px); box-shadow: 0 10px 24px rgba(251, 191, 36, 0.2); }
         .vowel-btn:active:not(:disabled) { transform: translateY(1px); }
 
-        .like-badge { position: absolute; top: -8px; right: -8px; font-size: 48px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4)); animation: badgeFloat 2s infinite ease-in-out; z-index: 2; pointer-events: none; }
+        /* ✅ REVISI: Like badge diposisikan di dalam kartu agar tidak terpotong */
+        .like-badge { position: absolute; top: 4px; right: 4px; font-size: 42px; filter: drop-shadow(0 4px 8px rgba(0,0,0,0.4)); animation: badgeFloat 2s infinite ease-in-out; z-index: 2; pointer-events: none; }
         .badge-green { color: #22c55e; }
         .badge-red { color: #ef4444; }
         @keyframes badgeFloat { 0%, 100% { transform: translateY(0) scale(1) rotate(0deg); } 50% { transform: translateY(-6px) scale(1.1) rotate(10deg); } }
 
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 20px; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 20px; }
 
-        .option-card { background: #ffffff; border: 2px solid var(--border-light); border-radius: 22px; padding: 20px; cursor: pointer; transition: all 0.2s; user-select: none; box-shadow: var(--shadow-sm); display: flex; justify-content: center; align-items: center; min-height: 140px; position: relative; overflow: hidden; }
+        /* ✅ REVISI: padding lebih kecil & min-height auto supaya gambar bisa besar */
+        .option-card { background: #ffffff; border: 2px solid var(--border-light); border-radius: 18px; padding: 8px; cursor: pointer; transition: all 0.2s; user-select: none; box-shadow: var(--shadow-sm); display: flex; justify-content: center; align-items: center; min-height: auto; position: relative; overflow: hidden; }
         .option-card:hover:not(.disabled-attempt) { border-color: var(--yellow); background: var(--bg-tint); transform: translateY(-3px); box-shadow: 0 10px 24px rgba(251, 191, 36, 0.2); }
         .option-card:active { transform: translateY(1px); }
         .option-card.correct { background: var(--green-soft); border-color: var(--green); transform: scale(1.05); box-shadow: 0 0 30px rgba(34, 197, 94, 0.4); animation: correctPop 0.5s; }
         @keyframes correctPop { 0% { transform: scale(1); } 50% { transform: scale(1.15) rotate(3deg); } 100% { transform: scale(1.05); } }
-        .option-card.correct::after { content: '⭐'; position: absolute; top: 12px; right: 16px; font-size: 32px; animation: starSpin 0.6s; }
+        .option-card.correct::after { content: '⭐'; position: absolute; top: 8px; right: 12px; font-size: 32px; animation: starSpin 0.6s; }
         @keyframes starSpin { 0% { transform: scale(0) rotate(0deg); } 60% { transform: scale(1.5) rotate(180deg); } 100% { transform: scale(1) rotate(360deg); } }
         .option-card.wrong { background: var(--red-soft); border-color: var(--red); animation: shake 0.5s; box-shadow: 0 0 20px rgba(239, 68, 68, 0.3); }
         .option-card.disabled-attempt { opacity: 0.3; pointer-events: none; filter: grayscale(1); }
@@ -212,7 +215,6 @@
         .xp-float { position: fixed; font-family: 'Baloo 2', sans-serif; font-size: 52px; font-weight: 800; color: var(--yellow-dark); text-shadow: 0 2px 12px var(--yellow-glow); pointer-events: none; z-index: 1000; animation: xpFloat 1.2s ease-out forwards; }
         @keyframes xpFloat { 0% { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.5); } 30% { opacity: 1; transform: translateX(-50%) translateY(-20px) scale(1.2); } 100% { opacity: 0; transform: translateX(-50%) translateY(-100px) scale(1); } }
 
-        /* === REPORT / CERTIFICATE === */
         #screen-report, #screen-practice-result { max-width: 900px; padding: 20px; background: transparent; border: none; box-shadow: none; }
         #screen-report.active, #screen-practice-result.active { display: block; }
         #screen-report::before, #screen-practice-result::before { display: none; }
@@ -312,8 +314,12 @@
             .login-sub { font-size: 15px; }
             .login-mascot .bee { font-size: 72px; }
             .btn { font-size: 17px; padding: 16px 24px; }
-            .options-grid { gap: 12px; }
-            .option-card { padding: 16px; min-height: 110px; border-radius: 16px; }
+            /* ✅ REVISI: padding kartu & frame lebih kecil di mobile */
+            .options-grid { gap: 8px; }
+            .option-card { padding: 6px; border-radius: 14px; }
+            .image-frame.option-img { border-radius: 10px; }
+            .image-frame.option-img img { padding: 2px; }
+            .like-badge { font-size: 34px; top: 2px; right: 2px; }
             .audio-option-card { min-height: 130px; padding: 12px; border-radius: 16px; }
             .audio-play-btn { width: 60px; height: 60px; font-size: 28px; }
             .audio-select-btn { font-size: 11px; padding: 6px 14px; }
@@ -357,7 +363,6 @@
         One more chance!
     </div>
 
-    <!-- ============ LOGIN ============ -->
     <div id="screen-login" class="screen active">
         <div class="login-mascot"><div class="bee">📚</div></div>
         <h1 class="login-title">Hobbies<br>Edition</h1>
@@ -366,11 +371,11 @@
         <div class="login-form">
             <div class="input-group">
                 <label>🏫 School</label>
-				<select id="inp-school-select" class="select-with-arrow">
-				<option value="Amed Honeycomb School">Amed Honeycomb School</option>
-				<option value="Tutor Bahasa ID">Tutor Bahasa ID</option>   <!-- ← TAMBAH BARIS INI -->
-				<option value="other">+ Add other school...</option>
-			</select>
+                <select id="inp-school-select" class="select-with-arrow">
+                    <option value="Amed Honeycomb School">Amed Honeycomb School</option>
+                    <option value="Tutor Bahasa ID">Tutor Bahasa ID</option>
+                    <option value="other">+ Add other school...</option>
+                </select>
                 <input type="text" id="inp-school-custom" placeholder="Enter school name" style="display: none; margin-top: 8px;">
             </div>
             <div class="input-group">
@@ -384,24 +389,24 @@
             
             <div class="input-group">
                 <label>🎯 Activity Mode</label>
-			<select id="inp-mode" class="select-with-arrow">
-			<option value="standard">Standard Quiz (28 Questions)</option>
-			<option value="full">Full Assessment (All Words)</option>
-			<optgroup label="🎧 Practice: Listen & Match">
-				<option value="practice_listen">Listen & Pick Picture (8 Q)</option>
-				<option value="practice_match">Match Picture to Audio (8 Q)</option>
-			</optgroup>
-			<optgroup label="🎧 Practice: Listen & Understand">
-				<option value="practice_truefalse">True or False (8 Q)</option>
-				<option value="practice_like">Like or Dislike (8 Q)</option>
-			</optgroup>
-			<optgroup label="📖 Practice: Reading">
-				<option value="practice_audio_text">Audio to Word (8 Q)</option>
-			</optgroup>
-			<optgroup label="✍️ Practice: Writing">
-				<option value="practice_missing_letters">Missing Letters (8 Q)</option>
-			</optgroup>
-		</select>
+                <select id="inp-mode" class="select-with-arrow">
+                    <option value="standard">Standard Quiz (28 Questions)</option>
+                    <option value="full">Full Assessment (All Words)</option>
+                    <optgroup label="🎧 Practice: Listen & Match">
+                        <option value="practice_listen">Listen & Pick Picture (8 Q)</option>
+                        <option value="practice_match">Match Picture to Audio (8 Q)</option>
+                    </optgroup>
+                    <optgroup label="🎧 Practice: Listen & Understand">
+                        <option value="practice_truefalse">True or False (8 Q)</option>
+                        <option value="practice_like">Like or Dislike (8 Q)</option>
+                    </optgroup>
+                    <optgroup label="📖 Practice: Reading">
+                        <option value="practice_audio_text">Audio to Word (8 Q)</option>
+                    </optgroup>
+                    <optgroup label="✍️ Practice: Writing">
+                        <option value="practice_missing_letters">Missing Letters (8 Q)</option>
+                    </optgroup>
+                </select>
             </div>
 
             <button class="btn" onclick="startQuiz()">🚀 Start Adventure</button>
@@ -410,7 +415,6 @@
         </div>
     </div>
 
-    <!-- ============ QUIZ ============ -->
     <div id="screen-quiz" class="screen">
         <div class="quiz-header">
             <div class="q-counter" id="q-counter">Question 1 / 28</div>
@@ -438,7 +442,6 @@
         <div class="options-grid" id="options-container"></div>
     </div>
 
-    <!-- ============ REPORT (Certificate) ============ -->
     <div id="screen-report" class="screen">
         <div class="certificate">
             <span class="cert-corner tl">📚</span>
@@ -468,7 +471,6 @@
                     <div class="cert-grade" id="rep-grade">A · Excellent</div>
                 </div>
 
-                <!-- Breakdown (Only shown in Full Mode) -->
                 <div class="breakdown-box" id="cert-breakdown" style="display: none;">
                     <div class="breakdown-title">Skill Breakdown</div>
                     <div class="breakdown-row">
@@ -539,12 +541,11 @@
 
         <div class="report-actions no-print">
             <button class="btn" onclick="printCertificate()">🖨️ Print / Save PDF</button>
-            <a href="../numbers/" class="btn btn-secondary" style="margin-top: 0; width: auto; flex: 1; min-width: 200px; max-width: 280px;">🔢 Go to Numbers</a>
-            <button class="btn btn-secondary" onclick="location.reload()">🏠 Play Again</button>
+            <a href="../" class="btn btn-secondary" style="margin-top: 0; width: auto; flex: 1; min-width: 200px; max-width: 280px;">🏠 Back to Menu</a>
+            <button class="btn btn-secondary" onclick="location.reload()">🔄 Play Again</button>
         </div>
     </div>
 
-    <!-- ============ PRACTICE RESULT (No Certificate) ============ -->
     <div id="screen-practice-result" class="screen">
         <div class="practice-card">
             <div style="font-size: 80px; margin-bottom: 10px;">📚</div>
@@ -558,14 +559,13 @@
             </div>
 
             <button class="btn" onclick="location.reload()">🔄 Back to Menu</button>
-            <a href="../numbers/" class="btn btn-secondary" style="margin-top: 10px;">🔢 Switch to Numbers</a>
+            <a href="../" class="btn btn-secondary" style="margin-top: 10px;">🏠 Dashboard</a>
         </div>
     </div>
 
     <footer class="site-footer">Created by Tutor Bahasa 2026</footer>
 
     <script>
-        /* ============ BACKGROUND ============ */
         const bgEmojis = ['📖', '⚽', '🎨', '🏊', '💃', '🎤', '🧱', '✍️', '🍽️', '🛏️', '📚', '🐝'];
         const bgContainer = document.getElementById('bg-animation');
         for (let i = 0; i < 15; i++) {
@@ -578,7 +578,6 @@
             bgContainer.appendChild(span);
         }
 
-        /* ============ VOCABULARY ============ */
         const vocabulary = [
             { id: "membaca", word: "Membaca", emoji: "📖", audio: "audio/membaca.mp3", image: "images/membaca.png", sentence: "audio/dia-membaca.mp3" },
             { id: "berenang", word: "Berenang", emoji: "🏊", audio: "audio/berenang.mp3", image: "images/berenang.png", sentence: "audio/dia-berenang.mp3" },
@@ -611,53 +610,40 @@
             writing: { score: 0, total: 0 }
         };
 
-        /* ============ SCHOOL DROPDOWN LOGIC ============ */
         const SCHOOL_STORAGE_KEY = 'bipa_custom_schools';
 
         function loadSavedSchools() {
-		try {
-        const saved = JSON.parse(localStorage.getItem(SCHOOL_STORAGE_KEY) || '[]');
-        const select = document.getElementById('inp-school-select');
-        const otherOption = select.querySelector('option[value="other"]');
-        
-        // Kumpulkan semua value preset yang sudah ada (lowercase)
-        const existingValues = Array.from(select.options)
-            .map(o => o.value.toLowerCase());
-        
-        saved.forEach(school => {
+            try {
+                const saved = JSON.parse(localStorage.getItem(SCHOOL_STORAGE_KEY) || '[]');
+                const select = document.getElementById('inp-school-select');
+                const otherOption = select.querySelector('option[value="other"]');
+                const existingValues = Array.from(select.options).map(o => o.value.toLowerCase());
+                saved.forEach(school => {
+                    if (!school) return;
+                    if (!existingValues.includes(school.toLowerCase())) {
+                        const opt = document.createElement('option');
+                        opt.value = school;
+                        opt.textContent = school;
+                        select.insertBefore(opt, otherOption);
+                        existingValues.push(school.toLowerCase());
+                    }
+                });
+            } catch (e) { console.warn('Load schools failed:', e); }
+        }
+
+        function saveSchoolOption(school) {
             if (!school) return;
-            // Cek case-insensitive
-            if (!existingValues.includes(school.toLowerCase())) {
-                const opt = document.createElement('option');
-                opt.value = school;
-                opt.textContent = school;
-                select.insertBefore(opt, otherOption);
-                existingValues.push(school.toLowerCase()); // cegah duplikat internal
-				}
-			});
-		} 	catch (e) { console.warn('Load schools failed:', e); }
-	}
-        
-		function saveSchoolOption(school) {
-		if (!school) return;
-		
-		// Cek case-insensitive terhadap semua preset & saved
-		const select = document.getElementById('inp-school-select');
-		const existingValues = Array.from(select.options)
-			.map(o => o.value.toLowerCase());
-		
-		// Jika sudah ada (case-insensitive), tidak perlu simpan
-		if (existingValues.includes(school.toLowerCase())) return;
-		
-		try {
-			const saved = JSON.parse(localStorage.getItem(SCHOOL_STORAGE_KEY) || '[]');
-			// Cek duplikat case-insensitive di localStorage juga
-			if (!saved.some(s => s.toLowerCase() === school.toLowerCase())) {
-				saved.push(school);
-				localStorage.setItem(SCHOOL_STORAGE_KEY, JSON.stringify(saved));
-			}
-		} catch (e) { console.warn('Save school failed:', e); }
-}
+            const select = document.getElementById('inp-school-select');
+            const existingValues = Array.from(select.options).map(o => o.value.toLowerCase());
+            if (existingValues.includes(school.toLowerCase())) return;
+            try {
+                const saved = JSON.parse(localStorage.getItem(SCHOOL_STORAGE_KEY) || '[]');
+                if (!saved.some(s => s.toLowerCase() === school.toLowerCase())) {
+                    saved.push(school);
+                    localStorage.setItem(SCHOOL_STORAGE_KEY, JSON.stringify(saved));
+                }
+            } catch (e) { console.warn('Save school failed:', e); }
+        }
         document.getElementById('inp-school-select').addEventListener('change', (e) => {
             const custom = document.getElementById('inp-school-custom');
             if (e.target.value === 'other') {
@@ -668,7 +654,6 @@
             }
         });
 
-        /* ============ AUDIO CACHE & PLAYER ============ */
         const audioCache = {};
         let currentAudio = null;
 
@@ -705,10 +690,8 @@
             const audio = getAudio(src);
             currentAudio = audio;
             const cleanup = () => { if (btn) btn.classList.remove('playing'); };
-
             audio.onended = () => { cleanup(); if (callback) callback(); };
             audio.onerror = () => { cleanup(); if (callback) callback(); }; 
-
             const playPromise = audio.play();
             if (playPromise) {
                 playPromise.catch(err => {
@@ -746,16 +729,20 @@
             if ('speechSynthesis' in window) window.speechSynthesis.cancel();
         }
 
-        /* ============ IMAGE HELPER ============ */
+        /* ✅ REVISI: imageTag mode opsi pakai CSS aspect-ratio, bukan fixed size */
         function imageTag(item, size, isOption = false) {
-            const cls = isOption ? 'image-frame option-img' : 'image-frame';
-            return `<div class="${cls}" style="width:${size}px; height:${size}px;">
+            if (isOption) {
+                return `<div class="image-frame option-img">
+                    <img src="${item.image}" alt="${item.word}"
+                        onerror="this.parentNode.outerHTML='<span style=\\'font-size:60px;line-height:1;display:flex;align-items:center;justify-content:center;width:100%;height:100%;\\'>${item.emoji}</span>'">
+                </div>`;
+            }
+            return `<div class="image-frame" style="width:${size}px; height:${size}px;">
                 <img src="${item.image}" alt="${item.word}"
                     onerror="this.parentNode.outerHTML='<span style=\\'font-size:${Math.round(size * 0.5)}px;line-height:1;display:block;text-align:center;\\'>${item.emoji}</span>'">
             </div>`;
         }
 
-        /* ============ SFX ============ */
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         function playSFX(type) {
             if (audioCtx.state === 'suspended') audioCtx.resume();
@@ -785,7 +772,6 @@
             }
         }
 
-        /* ============ TIMER ============ */
         let timerInterval = null;
         let timeLeft = 0;
         let totalTime = 0;
@@ -852,16 +838,10 @@
             }, 2000);
         }
 
-        /* ============ GENERATE QUESTIONS ============ */
         function generateQuestions() {
             let qs = [];
             activityMode = document.getElementById('inp-mode').value;
-            
-            skillStats = {
-                listening: { score: 0, total: 0 },
-                reading: { score: 0, total: 0 },
-                writing: { score: 0, total: 0 }
-            };
+            skillStats = { listening: { score: 0, total: 0 }, reading: { score: 0, total: 0 }, writing: { score: 0, total: 0 } };
 
             if (activityMode === 'full') {
                 vocabulary.forEach(v => {
@@ -869,14 +849,12 @@
                     qs.push({ ...v, type: 'audio-text' });
                     qs.push({ ...v, type: 'match' });
                     qs.push({ ...v, type: 'like', isLike: Math.random() > 0.5 });
-
                     let audioV = vocabulary[Math.floor(Math.random() * vocabulary.length)];
                     const isTrue = Math.random() > 0.5;
                     if (!isTrue && audioV.id === v.id) {
                         audioV = vocabulary.filter(x => x.id !== v.id)[0];
                     }
                     qs.push({ ...v, type: 'true-false', sentence: isTrue ? v.sentence : audioV.sentence, isTrue: isTrue });
-
                     const vowels = v.word.split('').filter(ch => 'aiueoAIUEO'.includes(ch));
                     if (vowels.length >= 2 && vowels.length <= 4) {
                         qs.push({ ...v, type: 'missing-letters' });
@@ -884,44 +862,43 @@
                 });
                 TOTAL_Q = qs.length;
             } 
-				/* ===== PRACTICE: 8 soal per tipe (fokus ke satu skill) ===== */
-				else if (activityMode.startsWith('practice_')) {
-				const t = activityMode.replace('practice_', '');
-				vocabulary.forEach(v => {
-					switch(t) {
-						case 'listen':
-							qs.push({ ...v, type: 'listen' });
-							break;
-						case 'match':
-							qs.push({ ...v, type: 'match' });
-							break;
-						case 'audio_text':
-							qs.push({ ...v, type: 'audio-text' });
-							break;
-						case 'missing_letters': {
-							const vowels = v.word.split('').filter(ch => 'aiueoAIUEO'.includes(ch));
-							if (vowels.length >= 2 && vowels.length <= 4) {
-								qs.push({ ...v, type: 'missing-letters' });
-							}
-							break;
-						}
-						case 'truefalse': {
-							let audioV = vocabulary[Math.floor(Math.random() * vocabulary.length)];
-							const isTrue = Math.random() > 0.5;
-							if (!isTrue && audioV.id === v.id) {
-								audioV = vocabulary.filter(x => x.id !== v.id)[0];
-							}
-							qs.push({ ...v, type: 'true-false', sentence: isTrue ? v.sentence : audioV.sentence, isTrue: isTrue });
-							break;
-						}
-						case 'like': {
-							qs.push({ ...v, type: 'like', isLike: Math.random() > 0.5 });
-							break;
-						}
-					}
-				});
-				TOTAL_Q = qs.length; // 8 (atau kurang jika ada yang tidak qualify)
-			}
+            else if (activityMode.startsWith('practice_')) {
+                const t = activityMode.replace('practice_', '');
+                vocabulary.forEach(v => {
+                    switch(t) {
+                        case 'listen':
+                            qs.push({ ...v, type: 'listen' });
+                            break;
+                        case 'match':
+                            qs.push({ ...v, type: 'match' });
+                            break;
+                        case 'audio_text':
+                            qs.push({ ...v, type: 'audio-text' });
+                            break;
+                        case 'missing_letters': {
+                            const vowels = v.word.split('').filter(ch => 'aiueoAIUEO'.includes(ch));
+                            if (vowels.length >= 2 && vowels.length <= 4) {
+                                qs.push({ ...v, type: 'missing-letters' });
+                            }
+                            break;
+                        }
+                        case 'truefalse': {
+                            let audioV = vocabulary[Math.floor(Math.random() * vocabulary.length)];
+                            const isTrue = Math.random() > 0.5;
+                            if (!isTrue && audioV.id === v.id) {
+                                audioV = vocabulary.filter(x => x.id !== v.id)[0];
+                            }
+                            qs.push({ ...v, type: 'true-false', sentence: isTrue ? v.sentence : audioV.sentence, isTrue: isTrue });
+                            break;
+                        }
+                        case 'like': {
+                            qs.push({ ...v, type: 'like', isLike: Math.random() > 0.5 });
+                            break;
+                        }
+                    }
+                });
+                TOTAL_Q = qs.length;
+            }
             else {
                 TOTAL_Q = 28;
                 for(let i=0; i<5; i++) {
@@ -949,7 +926,6 @@
                     const v = vocabulary[Math.floor(Math.random() * vocabulary.length)];
                     qs.push({ ...v, type: 'like', isLike: Math.random() > 0.5 });
                 }
-                
                 function countVowels(word) {
                     const vowelSet = 'aiueoAIUEO';
                     let count = 0;
@@ -965,15 +941,12 @@
                     qs.push({ ...v, type: 'missing-letters' });
                 }
             }
-
             return qs.sort(() => Math.random() - 0.5);
         }
 
-        /* ============ START QUIZ ============ */
         function startQuiz() {
             const schoolSelect = document.getElementById('inp-school-select').value;
             const customSchool = document.getElementById('inp-school-custom').value.trim();
-            
             if (schoolSelect === 'other') {
                 if (!customSchool) {
                     alert("Please enter your school name 🌟");
@@ -985,31 +958,25 @@
             } else {
                 schoolName = schoolSelect;
             }
-            
             studentName = document.getElementById('inp-name').value.trim();
             studentClass = document.getElementById('inp-class').value.trim();
-            
             if (!studentName || !studentClass) {
                 alert("Please enter your Name and Class 🌟");
                 return;
             }
             if (audioCtx.state === 'suspended') audioCtx.resume();
-            
             preloadAssets();
             gameQuestions = generateQuestions();
             currentIndex = 0;
             score = 0;
             correctCount = 0;
             currentAttempt = 1;
-            
             document.getElementById('screen-login').classList.remove('active');
             document.getElementById('screen-quiz').classList.add('active');
-            
             buildXPProgress();
             loadQuestion();
         }
 
-        /* ============ XP PROGRESS ============ */
         function buildXPProgress() {
             const wrap = document.getElementById('xp-progress');
             wrap.innerHTML = '';
@@ -1034,13 +1001,11 @@
         function updateAttemptIndicator() {
             const dots = document.querySelectorAll('.attempt-dot');
             const label = document.querySelector('.attempt-label');
-
             dots.forEach((dot, i) => {
                 dot.classList.remove('active', 'used');
                 if (i < currentAttempt - 1) dot.classList.add('used');
                 else if (i === currentAttempt - 1) dot.classList.add('active');
             });
-
             if (currentAttempt === 1) {
                 label.textContent = '2 attempts';
                 label.classList.remove('danger');
@@ -1050,13 +1015,11 @@
             }
         }
 
-        /* ============ LOAD QUESTION ============ */
         function loadQuestion() {
             if (currentIndex >= TOTAL_Q) {
                 if (activityMode.startsWith('practice')) return showPracticeResult();
                 return showReport();
             }
-
             stopCurrentAudio();
             stopTimer();
             canClick = true;
@@ -1086,7 +1049,6 @@
             if (q.type === 'listen') {
                 instr.innerText = "🎧 Listen and pick the correct picture!";
                 document.getElementById('btn-speaker').style.display = 'flex';
-
                 let opts = [q, ...vocabulary.filter(v => v.id !== q.id).sort(() => Math.random() - 0.5).slice(0, 3)].sort(() => Math.random() - 0.5);
                 opts.forEach(opt => {
                     let div = document.createElement('div');
@@ -1103,7 +1065,6 @@
             else if (q.type === 'audio-text') {
                 instr.innerText = "🎧 Listen and pick the correct word!";
                 document.getElementById('btn-speaker').style.display = 'flex';
-
                 let opts = [q, ...vocabulary.filter(v => v.id !== q.id).sort(() => Math.random() - 0.5).slice(0, 3)].sort(() => Math.random() - 0.5);
                 opts.forEach(opt => {
                     let div = document.createElement('div');
@@ -1121,23 +1082,19 @@
                 instr.innerText = "🔍 Look at the picture, then pick the matching audio!";
                 display.style.display = 'block';
                 display.innerHTML = imageTag(q, 200);
-
                 let opts = [q, ...vocabulary.filter(v => v.id !== q.id).sort(() => Math.random() - 0.5).slice(0, 3)].sort(() => Math.random() - 0.5);
                 opts.forEach(opt => {
                     const card = document.createElement('div');
                     card.className = 'audio-option-card';
                     if (opt.id === q.id) card.dataset.correct = 'true';
-
                     const playBtn = document.createElement('button');
                     playBtn.className = 'audio-play-btn';
                     playBtn.innerHTML = '🔊';
                     playBtn.onclick = (e) => { e.stopPropagation(); playAudioFile(opt.sentence, playBtn); };
-
                     const selectBtn = document.createElement('button');
                     selectBtn.className = 'audio-select-btn';
                     selectBtn.innerText = 'Choose';
                     selectBtn.onclick = (e) => { e.stopPropagation(); if (canClick) checkAnswer(opt.id === q.id, card); };
-
                     card.appendChild(playBtn);
                     card.appendChild(selectBtn);
                     container.appendChild(card);
@@ -1150,22 +1107,18 @@
                 display.style.display = 'block';
                 display.innerHTML = imageTag(q, 200);
                 document.getElementById('btn-speaker').style.display = 'flex';
-
                 const btnTrue = document.createElement('div');
                 btnTrue.className = 'tf-option true-btn';
                 btnTrue.innerText = 'BENAR ✓';
                 if (q.isTrue) btnTrue.dataset.correct = 'true';
                 btnTrue.onclick = () => checkAnswer(q.isTrue, btnTrue);
-
                 const btnFalse = document.createElement('div');
                 btnFalse.className = 'tf-option false-btn';
                 btnFalse.innerText = 'SALAH ✗';
                 if (!q.isTrue) btnFalse.dataset.correct = 'true';
                 btnFalse.onclick = () => checkAnswer(!q.isTrue, btnFalse);
-
                 container.appendChild(btnTrue);
                 container.appendChild(btnFalse);
-
                 setTimeout(() => playAudioFile(q.sentence), 200);
             }
 
@@ -1174,12 +1127,12 @@
                 instr.innerText = "🎧 Listen and pick the correct picture!";
                 document.getElementById('btn-speaker').style.display = 'flex';
                 display.style.display = 'none'; 
-
+                /* ✅ REVISI: wrapper pakai width 100% (bukan inline-block) agar gambar bisa full */
                 let cardLike = document.createElement('div');
                 cardLike.className = 'option-card';
                 if (q.isLike === true) cardLike.dataset.correct = 'true';
                 cardLike.innerHTML = `
-                    <div style="position: relative; display: inline-block;">
+                    <div style="position: relative; width: 100%;">
                         ${imageTag(q, 120, true)}
                         <div class="like-badge badge-green">👍</div>
                     </div>
@@ -1190,7 +1143,7 @@
                 cardDislike.className = 'option-card';
                 if (q.isLike === false) cardDislike.dataset.correct = 'true';
                 cardDislike.innerHTML = `
-                    <div style="position: relative; display: inline-block;">
+                    <div style="position: relative; width: 100%;">
                         ${imageTag(q, 120, true)}
                         <div class="like-badge badge-red">👎</div>
                     </div>
@@ -1199,7 +1152,6 @@
 
                 container.appendChild(cardLike);
                 container.appendChild(cardDislike);
-
                 setTimeout(() => playVocabularyAudio(), 200);
             }
 
@@ -1207,21 +1159,17 @@
             else if (q.type === 'missing-letters') {
                 instr.innerText = "🎧 Listen and spell the missing letters!";
                 document.getElementById('btn-speaker').style.display = 'flex';
-
                 const vowelSet = 'aiueoAIUEO';
                 const word = q.word;
                 const correctVowels = [];
                 for (const ch of word) {
                     if (vowelSet.includes(ch)) correctVowels.push(ch.toLowerCase());
                 }
-
                 let currentBlanks = new Array(correctVowels.length).fill(null);
                 let nextBlankIdx = 0;
-
                 display.style.display = 'block';
                 display.innerHTML = `<div class="missing-word" id="missing-word"></div>`;
                 const wordEl = document.getElementById('missing-word');
-
                 function renderWord() {
                     wordEl.innerHTML = '';
                     let blankCounter = 0;
@@ -1249,7 +1197,6 @@
                     }
                 }
                 renderWord();
-
                 const vowels = ['a', 'i', 'u', 'e', 'o'];
                 vowels.forEach(v => {
                     const btn = document.createElement('button');
@@ -1258,14 +1205,11 @@
                     btn.onclick = () => {
                         if (!canClick) return;
                         if (nextBlankIdx >= correctVowels.length) return;
-
                         currentBlanks[nextBlankIdx] = v;
                         nextBlankIdx++;
                         renderWord();
-
                         if (nextBlankIdx >= correctVowels.length) {
                             const isCorrect = currentBlanks.every((c, i) => c === correctVowels[i]);
-
                             if (isCorrect) {
                                 stopTimer();
                                 canClick = false;
@@ -1287,7 +1231,6 @@
                                 canClick = false;
                                 wordEl.classList.add('wrong');
                                 playSFX('wrong');
-
                                 if (currentAttempt === 1) {
                                     setTimeout(() => {
                                         wordEl.classList.remove('wrong');
@@ -1318,7 +1261,6 @@
                     };
                     container.appendChild(btn);
                 });
-
                 setTimeout(() => playAudioFile(q.audio), 200);
             }
 
@@ -1328,7 +1270,6 @@
         function playVocabularyAudio() {
             const q = gameQuestions[currentIndex];
             const btn = document.getElementById('btn-speaker');
-
             if (q.type === 'like') {
                 const prefixAudio = q.isLike ? LIKE_AUDIO : DISLIKE_AUDIO;
                 playAudioSequence([prefixAudio, q.audio], btn);
@@ -1343,59 +1284,47 @@
             }
         }
 
-        /* ============ CHECK ANSWER ============ */
         function checkAnswer(isCorrect, element) {
             if (!canClick) return;
             const q = gameQuestions[currentIndex];
-
             if (isCorrect) {
                 canClick = false;
                 stopTimer();
                 element.classList.add('correct');
                 playSFX('correct');
-
                 const points = (currentAttempt === 1 ? 1 : 0.5);
                 score += points;
-                
                 if (['listen', 'match', 'true-false', 'like'].includes(q.type)) skillStats.listening.score += points;
                 else if (q.type === 'audio-text') skillStats.reading.score += points;
                 else if (q.type === 'missing-letters') skillStats.writing.score += points;
-
                 showXPFloat(currentAttempt === 1 ? "+1 ⭐" : "+½ ⭐");
                 correctCount++;
                 burstConfetti();
                 updateXPProgress();
-
                 setTimeout(() => {
                     currentIndex++;
                     currentAttempt = 1;
                     updateXPProgress();
                     loadQuestion();
                 }, 1200);
-
             } else {
                 element.classList.add('wrong');
                 playSFX('wrong');
-
                 if (currentAttempt === 1) {
                     currentAttempt = 2;
                     setTimeout(() => {
                         element.classList.remove('wrong');
                         element.classList.add('disabled-attempt');
                     }, 700);
-
                     showTryAgainBanner();
                     updateAttemptIndicator();
-
                     const instrEl = document.getElementById('instruction-text');
                     instrEl.classList.add('retry');
                     const originalText = instrEl.innerText.replace(' ⚡ Try again!', '');
                     instrEl.innerText = originalText + ' ⚡ Try again!';
-
                 } else {
                     canClick = false;
                     stopTimer();
-
                     setTimeout(() => {
                         const options = document.querySelectorAll('.option-card, .audio-option-card, .text-option-card, .tf-option');
                         options.forEach(opt => {
@@ -1404,7 +1333,6 @@
                             }
                         });
                     }, 400);
-
                     setTimeout(() => {
                         currentIndex++;
                         currentAttempt = 1;
@@ -1447,52 +1375,40 @@
             setTimeout(() => el.remove(), 1300);
         }
 
-        /* ============ PRACTICE RESULT ============ */
         function showPracticeResult() {
             document.getElementById('screen-quiz').classList.remove('active');
             document.getElementById('screen-practice-result').classList.add('active');
-            
             const finalScore = Math.round((score / TOTAL_Q) * 100);
             document.getElementById('practice-score-display').innerText = finalScore;
             document.getElementById('practice-correct-display').innerText = `${score} / ${TOTAL_Q}`;
-            
             let msg = "";
             if (finalScore >= 90) msg = "Outstanding! You're a natural!";
             else if (finalScore >= 75) msg = "Great job! Keep it up!";
             else if (finalScore >= 60) msg = "Good effort! Practice makes perfect.";
             else msg = "Don't give up! Try again to improve.";
-            
             document.getElementById('practice-sub-display').innerText = msg;
             playSFX('finish');
         }
 
-        /* ============ REPORT (Certificate) ============ */
         function showReport() {
             stopTimer();
             document.getElementById('screen-quiz').classList.remove('active');
             document.getElementById('screen-report').classList.add('active');
-            
             const finalScore = Math.round((score / TOTAL_Q) * 100);
             const grade = "A · Excellent";
-            
             let stars;
             if (finalScore >= 90) stars = 5;
             else if (finalScore >= 75) stars = 4;
             else if (finalScore >= 60) stars = 3;
             else if (finalScore >= 40) stars = 2;
             else stars = 1;
-            
             let achievement;
             if (finalScore >= 90) achievement = "🏆 Honey Master";
             else if (finalScore >= 75) achievement = "🌟 Busy Bee";
             else if (finalScore >= 60) achievement = "🐝 Little Bee";
             else achievement = "🌱 Just Starting";
-            
-            const today = new Date().toLocaleDateString('en-US', {
-                year: 'numeric', month: 'long', day: 'numeric'
-            });
+            const today = new Date().toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
             const certId = 'AH-' + Date.now().toString(36).toUpperCase().slice(-6);
-            
             document.getElementById('rep-school').innerText = schoolName;
             document.getElementById('rep-name').innerText = studentName;
             document.getElementById('rep-class').innerText = studentClass;
@@ -1502,7 +1418,6 @@
             document.getElementById('rep-completed').innerText = `${TOTAL_Q} / ${TOTAL_Q} Questions`;
             document.getElementById('rep-achievement').innerText = achievement;
             document.getElementById('rep-id').innerText = certId;
-
             let starsHTML = '';
             for (let i = 0; i < 5; i++) {
                 if (i < stars) starsHTML += '⭐';
@@ -1513,17 +1428,14 @@
             const bdBox = document.getElementById('cert-breakdown');
             if (activityMode === 'full') {
                 bdBox.style.display = 'block';
-                
                 const listenPct = skillStats.listening.total > 0 ? Math.round((skillStats.listening.score / skillStats.listening.total) * 100) : 0;
                 const readPct = skillStats.reading.total > 0 ? Math.round((skillStats.reading.score / skillStats.reading.total) * 100) : 0;
                 const writePct = skillStats.writing.total > 0 ? Math.round((skillStats.writing.score / skillStats.writing.total) * 100) : 0;
-                
                 setTimeout(() => {
                     document.getElementById('bd-listen-bar').style.width = listenPct + '%';
                     document.getElementById('bd-read-bar').style.width = readPct + '%';
                     document.getElementById('bd-write-bar').style.width = writePct + '%';
                 }, 100);
-
                 document.getElementById('bd-listen-score').innerText = listenPct + '%';
                 document.getElementById('bd-read-score').innerText = readPct + '%';
                 document.getElementById('bd-write-score').innerText = writePct + '%';
@@ -1544,24 +1456,18 @@
                     correctLevel : QRCode.CorrectLevel.H
                 });
             }
-            
             playSFX('finish');
         }
 
-        /* ============ PRINT PDF ============ */
         function printCertificate() {
             const originalTitle = document.title;
-            const safeName = (studentName || 'Student')
-                .trim()
-                .replace(/[^a-zA-Z0-9\s]/g, '')   
-                .replace(/\s+/g, '_');             
+            const safeName = (studentName || 'Student').trim().replace(/[^a-zA-Z0-9\s]/g, '').replace(/\s+/g, '_');             
             const today = new Date().toISOString().slice(0, 10);
             document.title = `BIPA_Hobbies_${safeName}_${today}`;
             window.print();
             setTimeout(() => { document.title = originalTitle; }, 1000);
         }
 
-        /* ============ PWA REGISTRATION ============ */
         if ('serviceWorker' in navigator) {
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('../sw.js')
@@ -1570,10 +1476,7 @@
             });
         }
 
-        /* ============ INIT ============ */
-        window.addEventListener('load', () => {
-            loadSavedSchools();
-        });
+        window.addEventListener('load', () => { loadSavedSchools(); });
     </script>
 </body>
 </html>
