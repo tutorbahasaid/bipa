@@ -1,5 +1,5 @@
 /* ============ SERVICE WORKER - TUTOR BAHASA (BIPA) ============ */
-const CACHE_VERSION = 'tutorbahasa-v38';
+const CACHE_VERSION = 'tutorbahasa-v39';
 const CORE_CACHE  = CACHE_VERSION;              // HTML, JS, CSS, fonts
 const AUDIO_CACHE = 'tutorbahasa-audio-v1';     // mp3 files (persist across versions)
 
