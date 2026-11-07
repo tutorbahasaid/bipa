@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Satu Langkah — BIPA Flashcards</title>
 <meta name="theme-color" content="#6b3f1d">
-<a href="../index.html" class="back-to-main" title="Back to Main Menu" aria-label="Back to Main Menu">←</a>
 <style>
   :root{
     --cream:#f8f3e8; --paper:#fffdf7; --brown:#6b3f1d; --brown-dark:#4a2a11;
@@ -220,14 +219,37 @@
   .app-footer a{color:var(--brown);font-weight:600;text-decoration:none;border-bottom:1px dotted var(--gold);display:inline-block;margin-left:4px;}
   .app-footer a:hover{color:var(--gold);}
 
-  .hidden{display:none!important;}
+    .hidden{display:none!important;}
   .mt-16{margin-top:16px;}
+
+  /* Back to Main Menu */
+  .back-to-main{
+    display:inline-flex;align-items:center;gap:5px;
+    height:38px;padding:0 12px;border-radius:999px;
+    border:1.5px solid #e8dfcd;background:#fff;color:var(--brown);
+    font-family:inherit;font-size:12px;font-weight:600;
+    text-decoration:none;transition:all .15s ease;flex-shrink:0;
+  }
+  .back-to-main:hover{
+    border-color:var(--gold);color:var(--brown-dark);
+    transform:translateY(-1px);box-shadow:0 4px 10px -4px rgba(107,63,29,.2);
+  }
+  .back-to-main .back-icon{font-size:14px;font-weight:800;line-height:1;}
+  .back-to-main .back-label{line-height:1;}
+  @media(max-width:640px){
+    .back-to-main{padding:0 10px;font-size:11px;height:34px;}
+    .back-to-main .back-label{display:none;}
+  }
 </style>
 </head>
 <body>
 <div class="card">
 
-  <div class="top-actions">
+    <div class="top-actions">
+    <a href="../index.html" class="back-to-main" title="Back to Main Menu" aria-label="Back to Main Menu">
+      <span class="back-icon">←</span>
+      <span class="back-label">Main Menu</span>
+    </a>
     <button class="icon-btn" id="btn-sound" title="Toggle sound">🔊</button>
     <button class="icon-btn" id="btn-settings" title="Settings">⚙️</button>
   </div>
@@ -296,11 +318,6 @@
 
       <button class="btn primary" id="btn-start">Start Flashcards</button>
       <button class="btn secondary mt-16" id="btn-back">← Back</button>
-	  
-	      <div id="topics-panel" class="hidden">
-      ...
-      <button class="btn primary" id="btn-start">Start Flashcards</button>
-      <button class="btn secondary mt-16" id="btn-back">← Back</button>
     </div>
 
     <!-- PROMO WORD BUILDER -->
@@ -308,7 +325,7 @@
       <div style="font-size:11px;font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:#c98a3a;margin-bottom:8px;">Next step</div>
       <div style="font-family:Georgia,serif;font-size:17px;font-weight:700;color:#4a2a11;margin-bottom:6px;">🔤 Word Builder</div>
       <p style="font-size:13px;color:#5b4a33;line-height:1.5;margin-bottom:12px;">Learn how Indonesian words are built from roots — <em>makan → makanan, memakan, pemakan, dimakan.</em></p>
-      <a href="https://tutorbahasaid.github.io/wordbuilder/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:12px 18px;background:linear-gradient(135deg,#c98a3a,#a86e28);color:#fff;text-decoration:none;border-radius:10px;font-size:14px;font-weight:600;">Explore Word Builder →</a>
+      <a href="https://tutorbahasaid.github.io/bipa/word-builder/" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:6px;padding:12px 18px;background:linear-gradient(135deg,#c98a3a,#a86e28);color:#fff;text-decoration:none;border-radius:10px;font-size:14px;font-weight:600;">Explore Word Builder →</a>
     </div>
   </section>
 
