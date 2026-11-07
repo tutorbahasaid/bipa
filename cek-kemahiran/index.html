@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Skills Check · Satu Langkah BIPA</title>
 <meta name="theme-color" content="#6b3f1d">
-<a href="../index.html" class="back-to-main" title="Back to Main Menu" aria-label="Back to Main Menu">←</a>
 <style>
   :root{
     --cream:#f8f3e8; --paper:#fffdf7; --brown:#6b3f1d; --brown-dark:#4a2a11;
@@ -170,7 +169,7 @@
   .mt-16{margin-top:16px;}
   .hidden{display:none!important;}
 
-  @media(max-width:420px){
+   @media(max-width:420px){
     .card{padding:22px 16px 20px;}
     h1{font-size:22px;}
     .listen-stage{padding:14px;}
@@ -180,14 +179,63 @@
     .nav-buttons{grid-template-columns:1fr;}
     .actions.two-col{grid-template-columns:1fr;}
   }
+
+  /* Back to Main Menu */
+  .back-to-main {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 2px solid #e5e7eb;
+    color: #1a1a1a;
+    font-family: system-ui, -apple-system, 'Fredoka', sans-serif;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+    z-index: 9999;
+    transition: all .15s ease;
+    -webkit-tap-highlight-color: transparent;
+  }
+  .back-to-main:hover {
+    transform: translateY(-1px);
+    border-color: #fbbf24;
+    box-shadow: 0 6px 20px rgba(0,0,0,.12);
+  }
+  .back-to-main:active {
+    transform: translateY(0) scale(0.97);
+  }
+  .back-to-main .back-icon {
+    font-size: 18px;
+    line-height: 1;
+    font-weight: 800;
+  }
+  .back-to-main .back-label {
+    line-height: 1;
+  }
+  @media (max-width: 640px) {
+    .back-to-main {
+      top: 12px;
+      left: 12px;
+      padding: 8px 14px;
+      font-size: 13px;
+    }
+    .back-to-main .back-icon { font-size: 16px; }
+  }
 </style>
 </head>
 <body>
 <div class="card">
 
-  <div class="top-actions">
-    <button class="icon-btn" id="btn-back-app" title="Back to Flashcards">←</button>
-  </div>
+    <a href="../index.html" class="back-to-main" title="Back to Main Menu" aria-label="Back to Main Menu">
+    <span class="back-icon">←</span>
+    <span class="back-label">Main Menu</span>
+  </a>
 
   <!-- HOME -->
   <section id="screen-home" class="screen active">
