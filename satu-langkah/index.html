@@ -301,7 +301,7 @@
     </div>
 
     <div id="topics-panel" class="hidden">
-      <div class="section-title">Topics</div>
+      <div class="section-title">Topics <span id="topic-count-badge"></span></div>
       <div class="topic-actions">
         <button id="select-all">Select all</button>
         <button id="clear-all">Clear all</button>
@@ -377,7 +377,7 @@
     <div class="eyebrow">Session Results</div>
     <h1 style="font-size:22px;">Vocabulary You Mastered</h1>
     <div class="result-card">
-      <div class="result-score"><span id="final-score">0</span><span class="denom" style="font-size:22px;color:#a99a7d;"> / 0</span></div>
+      <div class="result-score"><span id="final-score">0</span><span class="denom" style="font-size:22px;color:#a99a7d;"> / <span id="final-total">0</span></span></div>
       <div class="result-label">marked "Know" when card was shown</div>
       <div class="level" id="level">Beginner</div>
     </div>
@@ -2323,7 +2323,7 @@ Ungkapan Tak Tentu;jarang-jarang;rarely / it's rare;Jarang-jarang dia tersenyum.
 Ungkapan Tak Tentu;satu per satu;one by one;Masuk satu per satu.;Enter one by one.
 Ungkapan Tak Tentu;lama-kelamaan;over time / eventually;Lama-kelamaan kamu akan paham.;Eventually, you will understand.
 Ungkapan Tak Tentu;sedikit-sedikit;little by little;Belajar sedikit-sedikit.;Study little by little.
-;
+`;
 
 </script>
 
@@ -2629,7 +2629,7 @@ function tName(id) { return TOPIC_EN[id] || id; }
   // ============================================================
   // TOPIC GRID
   // ============================================================
-  let selectedTopics = new Set(TOPIC_NAMES);
+  let selectedTopics = new Set(); // Mulai kosong — user wajib memilih topik
   let selectedLen = 20;
   let currentFamily = null;
 
@@ -2637,6 +2637,9 @@ function tName(id) { return TOPIC_EN[id] || id; }
   const grid = $('topic-grid');
   if (!grid) return;
   grid.innerHTML = '';
+
+  // Reset state agar konsisten saat fungsi dipanggil ulang
+  selectedTopics.clear();
 
   // Sort saat runtime — semua variabel sudah tersedia
   const sorted = TOPIC_NAMES.slice().sort((a, b) => {
@@ -2670,16 +2673,46 @@ function tName(id) { return TOPIC_EN[id] || id; }
     const cb = document.createElement('input');
     cb.type = 'checkbox';
     cb.value = topic;
-    cb.checked = true;
+    cb.checked = false;                    // mulai tidak tercentang
     cb.addEventListener('change', () => {
       if (cb.checked) selectedTopics.add(topic);
       else selectedTopics.delete(topic);
+      updateTopicCount();
     });
     label.appendChild(cb);
     label.appendChild(document.createTextNode(tName(topic)));
     grid.appendChild(label);
   });
+
+  updateTopicCount();
 }
+
+  function updateTopicCount() {
+    const badge = $('topic-count-badge');
+    if (!badge) return;
+    const count = selectedTopics.size;
+    const total = TOPIC_NAMES.length;
+
+    let cardCount = 0;
+    selectedTopics.forEach(t => { cardCount += (TOPICS[t] || []).length; });
+
+    if (count === 0) {
+      badge.textContent = `(0/${total} topics · not selected yet)`;
+      badge.style.color = 'var(--red)';
+    } else {
+      badge.textContent = `(${count}/${total} topics · ${cardCount} cards)`;
+      badge.style.color = 'var(--gold)';
+    }
+    badge.style.fontWeight = '600';
+    badge.style.marginLeft = '8px';
+    badge.style.textTransform = 'none';
+    badge.style.letterSpacing = '0';
+
+    if (count > 0) {
+      const warn = document.querySelector('#topics-panel .warn');
+      if (warn) warn.remove();
+    }
+  }
 
   function getFilteredEntries() {
     let pool = [];
@@ -2972,6 +3005,7 @@ function tName(id) { return TOPIC_EN[id] || id; }
           cb.checked = true;
           selectedTopics.add(cb.value);
         });
+        updateTopicCount();
       };
     }
     if ($('clear-all')) {
@@ -2980,6 +3014,7 @@ function tName(id) { return TOPIC_EN[id] || id; }
           cb.checked = false;
           selectedTopics.delete(cb.value);
         });
+        updateTopicCount();
       };
     }
 
