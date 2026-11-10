@@ -391,7 +391,7 @@
                 <label>🏫 School</label>
                 <select id="inp-school-select" class="select-with-arrow">
                 <option value="Amed Honeycomb School">Amed Honeycomb School</option>
-				<option value="Tutor Bahasa ID">Tutor Bahasa ID</option>   <!-- ← TAMBAH BARIS INI -->
+				<option value="Tutor Bahasa ID">Tutor Bahasa ID</option>
 				<option value="other">+ Add other school...</option>
                 </select>
                 <input type="text" id="inp-school-custom" placeholder="Enter school name" style="display: none; margin-top: 8px;">
@@ -639,19 +639,17 @@
 				const select = document.getElementById('inp-school-select');
 				const otherOption = select.querySelector('option[value="other"]');
 				
-				// Kumpulkan semua value preset yang sudah ada (lowercase)
 				const existingValues = Array.from(select.options)
 					.map(o => o.value.toLowerCase());
 				
 				saved.forEach(school => {
 					if (!school) return;
-					// Cek case-insensitive
 					if (!existingValues.includes(school.toLowerCase())) {
 						const opt = document.createElement('option');
 						opt.value = school;
 						opt.textContent = school;
 						select.insertBefore(opt, otherOption);
-						existingValues.push(school.toLowerCase()); // cegah duplikat internal
+						existingValues.push(school.toLowerCase());
 					}
 				});
 			} catch (e) { console.warn('Load schools failed:', e); }
@@ -660,17 +658,14 @@
 			function saveSchoolOption(school) {
 			if (!school) return;
 			
-			// Cek case-insensitive terhadap semua preset & saved
 			const select = document.getElementById('inp-school-select');
 			const existingValues = Array.from(select.options)
 				.map(o => o.value.toLowerCase());
 			
-			// Jika sudah ada (case-insensitive), tidak perlu simpan
 			if (existingValues.includes(school.toLowerCase())) return;
 			
 			try {
 				const saved = JSON.parse(localStorage.getItem(SCHOOL_STORAGE_KEY) || '[]');
-				// Cek duplikat case-insensitive di localStorage juga
 				if (!saved.some(s => s.toLowerCase() === school.toLowerCase())) {
 					saved.push(school);
 					localStorage.setItem(SCHOOL_STORAGE_KEY, JSON.stringify(saved));
@@ -712,6 +707,13 @@
             const srcAda = `audio/ada.mp3`;
             if (!audioCache[srcAda]) {
                 const a = new Audio(); a.src = srcAda; a.preload = 'auto'; audioCache[srcAda] = a;
+            }
+            // Preload audio "ada [angka]" natural (11 file)
+            for (let i = 1; i <= 11; i++) {
+                const src = `audio/ada-${i}.mp3`;
+                if (!audioCache[src]) {
+                    const a = new Audio(); a.src = src; a.preload = 'auto'; audioCache[src] = a;
+                }
             }
             console.log('🔊 Preloaded', Object.keys(audioCache).length, 'audio files');
         }
@@ -929,11 +931,9 @@
                 });
                 TOTAL_Q = qs.length;
             } 
-				/* ===== PRACTICE: 11 soal per tipe (fokus ke satu skill) ===== */
 				else if (activityMode.startsWith('practice_')) {
 				const t = activityMode.replace('practice_', '');
 				
-				// Loop semua 11 angka
 				for (let i = 1; i <= 11; i++) {
 					const num = i;
 					const word = NUMBERS[num - 1];
@@ -1249,22 +1249,52 @@
                 setTimeout(() => playAudioSequence(['audio/ada.mp3', `audio/${q.audioNum}.mp3`, `audio/${q.obj.id}.mp3`]), 200);
             }
 
-            /* 5. Counting */
+            /* 5. Counting — pilihan berupa AUDIO "ada [angka]" natural */
             else if (q.type === 'counting') {
-                instr.innerText = "🔢 Count the objects and pick the correct number!";
+                instr.innerText = "🔢 Count the objects, then pick the correct audio!";
                 display.style.display = 'block';
                 display.innerHTML = getObjectGrid(q.num, q.obj.id, false);
                 document.getElementById('btn-speaker').style.display = 'flex';
 
-                let opts = [q.num, getRandomNum([q.num]), getRandomNum([q.num]), getRandomNum([q.num])].sort(() => Math.random() - 0.5);
+                // --- 4 angka unik (1 benar + 3 salah) ---
+                const nums = [q.num];
+                while (nums.length < 4) {
+                    const w = getRandomNum(nums);
+                    if (w && !nums.includes(w)) nums.push(w);
+                }
+                const opts = nums
+                    .map(n => ({ num: n, correct: n === q.num }))
+                    .sort(() => Math.random() - 0.5);
+
                 opts.forEach(opt => {
-                    let div = document.createElement('div');
-                    div.className = 'text-option-card';
-                    div.innerText = opt;
-                    if (opt === q.num) div.dataset.correct = 'true';
-                    div.onclick = () => checkAnswer(opt === q.num, div);
-                    container.appendChild(div);
+                    const card = document.createElement('div');
+                    card.className = 'audio-option-card';
+                    if (opt.correct) card.dataset.correct = 'true';
+
+                    // Tombol putar audio "ada [angka]"
+                    const playBtn = document.createElement('button');
+                    playBtn.className = 'audio-play-btn';
+                    playBtn.innerHTML = '🔊';
+                    playBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        playAudioFile(`audio/ada-${opt.num}.mp3`, playBtn);
+                    };
+
+                    // Tombol pilih
+                    const selectBtn = document.createElement('button');
+                    selectBtn.className = 'audio-select-btn';
+                    selectBtn.innerText = 'Choose';
+                    selectBtn.onclick = (e) => {
+                        e.stopPropagation();
+                        if (canClick) checkAnswer(opt.correct, card);
+                    };
+
+                    card.appendChild(playBtn);
+                    card.appendChild(selectBtn);
+                    container.appendChild(card);
                 });
+
+                // Audio pertanyaan otomatis: "ada berapa [objek]?"
                 setTimeout(() => playAudioFile(`audio/ada-berapa-${q.obj.id}.mp3`), 200);
             }
 
@@ -1291,26 +1321,24 @@
                 setTimeout(() => playAudioSequence([`audio/${q.num}.mp3`, `audio/${q.obj.id}.mp3`]), 200);
             }
 
-            /* 7. Missing Number — REVISED (TEXT CARDS) */
+            /* 7. Missing Number — TEXT CARDS */
             else if (q.type === 'missing-number') {
                 instr.innerText = "🔢 Listen and find the missing number!";
                 document.getElementById('btn-speaker').style.display = 'flex';
 
-                // Build sequence: 50% ascending, 50% descending
                 const isAscending = Math.random() > 0.5;
                 let startNum, seq = [];
                 if (isAscending) {
-                    startNum = Math.floor(Math.random() * 7) + 1; // 1-7
+                    startNum = Math.floor(Math.random() * 7) + 1;
                     for(let i=0; i<5; i++) seq.push(startNum + i);
                 } else {
-                    startNum = Math.floor(Math.random() * 7) + 5; // 5-11
+                    startNum = Math.floor(Math.random() * 7) + 5;
                     for(let i=0; i<5; i++) seq.push(startNum - i);
                 }
                 
-                const missingIdx = Math.floor(Math.random() * 4) + 1;  // hanya 1, 2, 3, 4
+                const missingIdx = Math.floor(Math.random() * 4) + 1;
                 const correctNum = seq[missingIdx];
                 
-                // Display cards with TEXT (words)
                 const displaySeq = seq.map((n, idx) => {
                     if (idx === missingIdx) return '?';
                     return NUMBERS[n-1];
@@ -1323,7 +1351,6 @@
                     ).join('')}
                 </div>`;
 
-                // Answers are NUMBERS
                 let wrongNums = [];
                 while(wrongNums.length < 3) {
                     let w = getRandomNum([correctNum, ...wrongNums]);
@@ -1340,7 +1367,6 @@
                     container.appendChild(div);
                 });
 
-                // Play sequence with DING + visual pulse on missing card
                 window._missingNumberPlayFn = () => {
                     stopCurrentAudio();
                     let i = 0;
@@ -1356,13 +1382,12 @@
                         if (i >= audioFiles.length) return;
                         if (audioFiles[i] === 'DING') {
                             playDing();
-                            // Bigger pulse on DING
                             if (missingCard) {
                                 missingCard.classList.add('ding-active');
                                 setTimeout(() => missingCard.classList.remove('ding-active'), 1200);
                             }
                             i++;
-                            setTimeout(playNext, 1200); // 1.2 sec gap after DING
+                            setTimeout(playNext, 1200);
                         } else {
                             const a = getAudio(audioFiles[i]);
                             currentAudio = a;
@@ -1544,28 +1569,37 @@
                 burstConfetti();
                 updateXPProgress();
 
+                // Konfirmasi audio untuk soal counting: "ada [angka]"
+                if (q.type === 'counting') {
+                    setTimeout(() => {
+                        playAudioFile(`audio/ada-${q.num}.mp3`);
+                    }, 400);
+                }
+
                 // Fill missing box for missing-number
                 if (q.type === 'missing-number') {
                     const cards = document.querySelectorAll('.seq-card');
                     cards.forEach(c => {
                         if (c.innerText === '?' || c.classList.contains('missing')) {
-                            // Show the correct word in the card
                             const num = parseInt(element.innerText);
                             c.innerText = NUMBERS[num-1];
                             c.classList.add('filled');
                             c.classList.remove('missing');
                         }
                     });
-                    // Reinforce: play the correct number audio
                     setTimeout(() => playAudioFile(`audio/${element.innerText}.mp3`), 500);
                 }
+
+                const delay = q.type === 'missing-number' ? 2000
+                            : q.type === 'counting'       ? 2200
+                            :                               1200;
 
                 setTimeout(() => {
                     currentIndex++;
                     currentAttempt = 1;
                     updateXPProgress();
                     loadQuestion();
-                }, q.type === 'missing-number' ? 2000 : 1200);
+                }, delay);
 
             } else {
                 element.classList.add('wrong');
@@ -1598,7 +1632,6 @@
                             }
                         });
 
-                        // Reveal correct answer in missing-number card
                         if (q.type === 'missing-number') {
                             const cards = document.querySelectorAll('.seq-card');
                             const correctBtn = Array.from(options).find(opt => opt.dataset.correct === 'true');
