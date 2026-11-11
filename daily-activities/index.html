@@ -80,8 +80,6 @@
         .xp-dot.filled::after { content: '✓'; color: white; font-weight: 800; font-size: 13px; }
         .xp-dot.current { background: linear-gradient(135deg, var(--yellow-bright), var(--yellow-dark)); border-color: var(--yellow-dark); animation: dotPulse 1.5s infinite; }
         .xp-dot.current::after { content: '●'; color: var(--yellow-text); font-weight: 800; font-size: 12px; }
-        
-        /* ✅ FIX PROPORSI: instruksi lebih ringkas */
         .instruction-text { font-family: 'Baloo 2', sans-serif; font-size: 20px; font-weight: 700; margin-bottom: 10px; color: var(--text); line-height: 1.25; }
         .instruction-text.retry { color: var(--yellow-dark); animation: instructionPulse 0.6s ease; }
         @keyframes instructionPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.04); } }
@@ -90,8 +88,6 @@
         .timer-bar-fill.warning { background: linear-gradient(90deg, var(--yellow-bright), var(--yellow-dark)); }
         .timer-bar-fill.danger { background: linear-gradient(90deg, #f87171, var(--red)); animation: pulse 0.5s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
-        
-        /* ✅ FIX: speaker button lebih ringkas */
         .speaker-btn { background: linear-gradient(135deg, var(--yellow), var(--yellow-dark)); color: var(--yellow-text); font-size: 46px; border: none; width: 100px; height: 100px; border-radius: 50%; cursor: pointer; margin: 4px auto 10px; display: flex; justify-content: center; align-items: center; box-shadow: 0 8px 24px var(--yellow-glow); transition: all 0.15s; position: relative; }
         .speaker-btn:hover { transform: translateY(-2px); }
         .speaker-btn:active { transform: translateY(2px); }
@@ -99,19 +95,14 @@
         .speaker-btn.playing::before { content: ''; position: absolute; inset: -12px; border: 3px solid var(--yellow-dark); border-radius: 50%; animation: ringPulse 1.2s infinite; }
         @keyframes speakerPulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
         @keyframes ringPulse { 0% { opacity: 0.8; transform: scale(0.9); } 100% { opacity: 0; transform: scale(1.4); } }
-        
         .image-frame { border-radius: 24px; overflow: hidden; border: 4px solid var(--yellow); box-shadow: 0 10px 30px rgba(251, 191, 36, 0.2); background: #ffffff; display: flex; justify-content: center; align-items: center; margin: 0 auto 12px; position: relative; }
         .image-frame img { width: 100%; height: 100%; object-fit: contain; padding: 8px; }
-        
-        /* ✅ FIX UTAMA: gambar pilihan jawaban lebih besar (78-96px) */
         .image-frame.option-img { margin: 0 auto; width: clamp(78px, 18vw, 96px); height: clamp(78px, 18vw, 96px); aspect-ratio: 1 / 1; border-width: 2px; border-color: var(--border-soft); border-radius: 12px; padding: 2px; }
         .image-frame.option-img:hover { border-color: var(--yellow); }
         .image-frame.option-img img { padding: 2px; }
-
         .digital-clock { font-family: 'Baloo 2', 'Fredoka', sans-serif; font-size: 48px; font-weight: 800; background: #ffffff; color: var(--blue-dark); padding: 14px 32px; border-radius: 18px; letter-spacing: 5px; border: 4px solid var(--blue); box-shadow: 0 8px 24px rgba(59, 130, 246, 0.2); display: inline-block; line-height: 1; }
         .digital-clock.small { font-size: 26px; padding: 10px 20px; letter-spacing: 3px; border-width: 3px; box-shadow: 0 4px 12px rgba(59, 130, 246, 0.15); }
         .tf-display { display: flex; flex-direction: column; align-items: center; gap: 10px; margin-bottom: 12px; }
-        
         .conversation-box { background: #f8f9fa; border-radius: 20px; padding: 12px 14px; margin: 4px auto 12px; max-width: 500px; border: 3px solid var(--yellow); box-shadow: 0 8px 24px rgba(251,191,36,0.15); }
         .conversation-row { display: flex; align-items: flex-start; gap: 10px; margin-bottom: 10px; }
         .conversation-row:last-child { margin-bottom: 0; }
@@ -123,7 +114,6 @@
         .conv-jam-hidden { display: inline-block; background: var(--yellow-dark); color: #fff; padding: 2px 14px; border-radius: 8px; font-weight: 800; min-width: 36px; text-align: center; transition: all 0.3s; }
         .conv-jam-hidden.revealed { background: var(--green); }
         .conv-activity { font-weight: 800; color: var(--blue-dark); }
-        
         .missing-word { display: flex; justify-content: center; align-items: center; gap: 4px; flex-wrap: wrap; font-family: 'Baloo 2', sans-serif; font-size: 44px; font-weight: 800; margin: 16px auto; min-height: 76px; }
         .static-letter { color: var(--text); min-width: 20px; text-align: center; }
         .blank-letter { color: var(--blue); border-bottom: 4px solid var(--blue); min-width: 26px; text-align: center; padding: 0 4px; }
@@ -134,41 +124,39 @@
         .missing-word.wrong { animation: shake 0.5s; }
         .vowel-btn { background: #ffffff; border: 3px solid var(--border-light); border-radius: 18px; padding: 16px; min-width: 68px; min-height: 68px; font-family: 'Baloo 2', sans-serif; font-size: 28px; font-weight: 800; color: var(--text); cursor: pointer; transition: all 0.2s; }
         .vowel-btn:hover:not(:disabled) { border-color: var(--yellow); background: var(--bg-tint); transform: translateY(-3px); }
-        
-        /* ✅ FIX: grid pilihan jawaban gap & margin lebih rapat */
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 10px; }
         .options-grid.single-col { grid-template-columns: 1fr; gap: 10px; }
-        
         .option-card { background: #ffffff; border: 2px solid var(--border-light); border-radius: 18px; padding: 6px; cursor: pointer; transition: all 0.2s; display: flex; justify-content: center; align-items: center; min-height: 96px; position: relative; overflow: hidden; }
         .option-card:hover:not(.disabled-attempt) { border-color: var(--yellow); background: var(--bg-tint); transform: translateY(-3px); }
         .option-card.correct { background: var(--green-soft); border-color: var(--green); transform: scale(1.05); box-shadow: 0 0 30px rgba(34, 197, 94, 0.4); animation: correctPop 0.5s; }
         @keyframes correctPop { 0% { transform: scale(1); } 50% { transform: scale(1.15) rotate(3deg); } 100% { transform: scale(1.05); } }
-        .option-card.correct::after { content: '⭐'; position: absolute; top: 4px; right: 8px; font-size: 28px; animation: starSpin 0.6s; }
+        .option-card.correct::after { content: '⭐'; position: absolute; top: 4px; right: 8px; font-size: 28px; animation: starSpin 0.6s; z-index: 2; }
         @keyframes starSpin { 0% { transform: scale(0) rotate(0deg); } 60% { transform: scale(1.5) rotate(180deg); } 100% { transform: scale(1) rotate(360deg); } }
         .option-card.wrong { background: var(--red-soft); border-color: var(--red); animation: shake 0.5s; }
         .option-card.disabled-attempt { opacity: 0.3; pointer-events: none; filter: grayscale(1); }
-        
+        .option-card.checked:not(.correct) { background: var(--blue-soft); border-color: var(--blue); transform: scale(1.03); box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
+        .option-card.checked::before { content: '✓'; position: absolute; top: 6px; left: 6px; color: #fff; font-size: 14px; font-weight: 900; background: var(--blue); width: 22px; height: 22px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 6px rgba(59, 130, 246, 0.4); z-index: 2; }
+        .option-card.checked.wrong { background: var(--red-soft); border-color: var(--red); }
+        .option-card.checked.wrong::before { background: var(--red); content: '✗'; }
+        .option-card.correct::before { display: none; }
         .text-option-card { background: #ffffff; border: 2px solid var(--border-light); border-radius: 22px; padding: 18px; cursor: pointer; transition: all 0.2s; display: flex; justify-content: center; align-items: center; min-height: 72px; position: relative; font-family: 'Baloo 2', sans-serif; font-size: 22px; font-weight: 700; color: var(--text); text-transform: capitalize; text-align: center; }
         .text-option-card:hover:not(.disabled-attempt) { border-color: var(--yellow); background: var(--bg-tint); transform: translateY(-3px); }
         .text-option-card.correct { background: var(--green-soft); border-color: var(--green); transform: scale(1.05); box-shadow: 0 0 30px rgba(34, 197, 94, 0.4); }
         .text-option-card.correct::after { content: '⭐'; position: absolute; top: 12px; right: 16px; font-size: 24px; animation: starSpin 0.6s; }
         .text-option-card.wrong { background: var(--red-soft); border-color: var(--red); animation: shake 0.5s; }
         .text-option-card.disabled-attempt { opacity: 0.3; pointer-events: none; filter: grayscale(1); }
-        
         .sentence-option-card { background: #ffffff; border: 3px solid var(--border-light); border-radius: 18px; padding: 16px 20px; cursor: pointer; transition: all 0.2s; display: flex; align-items: center; min-height: 62px; position: relative; font-family: 'Baloo 2', sans-serif; font-size: 19px; font-weight: 700; color: var(--text); text-align: left; line-height: 1.35; }
         .sentence-option-card:hover:not(.disabled-attempt) { border-color: var(--yellow); background: var(--bg-tint); transform: translateX(4px); box-shadow: 0 8px 20px rgba(251, 191, 36, 0.2); }
         .sentence-option-card.correct { background: var(--green-soft); border-color: var(--green); transform: scale(1.03); box-shadow: 0 0 30px rgba(34, 197, 94, 0.4); }
         .sentence-option-card.correct::after { content: '⭐'; position: absolute; top: 10px; right: 14px; font-size: 26px; animation: starSpin 0.6s; }
         .sentence-option-card.wrong { background: var(--red-soft); border-color: var(--red); animation: shake 0.5s; }
         .sentence-option-card.disabled-attempt { opacity: 0.3; pointer-events: none; filter: grayscale(1); }
-        
         .number-option-card { background: #ffffff; border: 3px solid var(--border-light); border-radius: 20px; padding: 18px 12px; cursor: pointer; transition: all 0.2s; display: flex; justify-content: center; align-items: center; min-height: 82px; position: relative; font-family: 'Baloo 2', sans-serif; font-size: 40px; font-weight: 800; color: var(--text); }
         .number-option-card:hover:not(.disabled-attempt) { border-color: var(--yellow); background: var(--bg-tint); transform: translateY(-3px); }
         .number-option-card.correct { background: var(--green-soft); border-color: var(--green); transform: scale(1.05); box-shadow: 0 0 30px rgba(34, 197, 94, 0.4); }
         .number-option-card.correct::after { content: '⭐'; position: absolute; top: 10px; right: 12px; font-size: 26px; animation: starSpin 0.6s; }
         .number-option-card.wrong { background: var(--red-soft); border-color: var(--red); animation: shake 0.5s; }
         .number-option-card.disabled-attempt { opacity: 0.3; pointer-events: none; filter: grayscale(1); }
-        
         .tf-option { border-radius: 22px; padding: 18px; cursor: pointer; transition: all 0.2s; display: flex; justify-content: center; align-items: center; min-height: 96px; position: relative; font-family: 'Baloo 2', sans-serif; font-size: 30px; font-weight: 800; letter-spacing: 2px; }
         .tf-option.true-btn { background: var(--green-soft); border: 3px solid var(--green); color: var(--green-dark); }
         .tf-option.true-btn:hover:not(.disabled-attempt) { background: #dcfce7; transform: translateY(-3px); }
@@ -178,7 +166,6 @@
         .tf-option.correct::after { content: '⭐'; position: absolute; top: 12px; right: 16px; font-size: 32px; animation: starSpin 0.6s; }
         .tf-option.wrong { animation: shake 0.5s; opacity: 0.5; }
         .tf-option.disabled-attempt { opacity: 0.3; pointer-events: none; filter: grayscale(1); }
-        
         .audio-option-card { background: #ffffff; border: 2px solid var(--border-light); border-radius: 22px; padding: 12px; display: flex; flex-direction: column; align-items: center; gap: 8px; min-height: 136px; position: relative; transition: all 0.2s; }
         .audio-option-card:hover:not(.disabled-attempt) { border-color: var(--yellow); background: var(--bg-tint); transform: translateY(-3px); }
         .audio-play-btn { background: linear-gradient(135deg, var(--yellow), var(--yellow-dark)); border: none; color: var(--yellow-text); width: 64px; height: 64px; border-radius: 50%; font-size: 30px; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 6px 16px var(--yellow-glow); transition: all 0.15s; position: relative; }
@@ -189,8 +176,6 @@
         .audio-option-card.correct::after { content: '⭐'; position: absolute; top: 12px; right: 16px; font-size: 32px; animation: starSpin 0.6s; }
         .audio-option-card.wrong { background: var(--red-soft); border-color: var(--red); animation: shake 0.5s; }
         .audio-option-card.disabled-attempt { opacity: 0.3; pointer-events: none; filter: grayscale(1); }
-        
-        /* ✅ FIX: sentence display lebih ringkas */
         .sentence-display { font-family: 'Baloo 2', sans-serif; font-size: 26px; font-weight: 800; text-align: center; margin: 12px auto; padding: 14px; background: #f8f9fa; border-radius: 16px; border: 2px solid var(--border-light); line-height: 1.45; }
         .sentence-blank { display: inline-block; min-width: 100px; border-bottom: 4px solid var(--blue); color: var(--blue); text-align: center; padding: 0 8px; margin: 0 4px; }
         .sentence-blank.filled { color: var(--green); border-color: var(--green); }
@@ -258,26 +243,13 @@
         .practice-sub { font-size: 18px; color: var(--text-muted); margin-bottom: 30px; }
         .site-footer { position: fixed; bottom: 12px; left: 50%; transform: translateX(-50%); font-size: 11px; color: var(--text-light); letter-spacing: 1.2px; text-transform: uppercase; padding: 6px 16px; background: rgba(255, 255, 255, 0.85); border: 1px solid var(--border-light); border-radius: 999px; z-index: 5; pointer-events: none; }
 
-        /* === MULTI AUDIO (LISTENING LEVEL 2) === */
         .multi-audio-box { background: #f8f9fa; border-radius: 18px; padding: 12px; margin: 0 auto 12px; max-width: 540px; border: 3px solid var(--blue); box-shadow: 0 8px 24px rgba(59, 130, 246, 0.15); }
         .multi-audio-label { font-family: 'Baloo 2', sans-serif; font-size: 12px; font-weight: 800; color: var(--blue-dark); letter-spacing: 2px; text-transform: uppercase; margin-bottom: 10px; text-align: center; }
         .clip-chips-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
-        .clip-chip { background: #ffffff; border: 2px solid var(--blue); border-radius: 14px; padding: 8px 10px; display: flex; align-items: center; gap: 8px; min-width: 80px; }
-        .clip-chip-emoji { font-size: 26px; line-height: 1; }
-        .clip-chip-info { display: flex; flex-direction: column; flex: 1; }
-        .clip-chip-word { font-family: 'Baloo 2', sans-serif; font-size: 12px; font-weight: 700; color: var(--text); text-transform: capitalize; line-height: 1.2; text-align: left; }
-        .clip-chip-play { background: var(--blue); color: #fff; border: none; border-radius: 50%; width: 26px; height: 26px; cursor: pointer; font-size: 12px; flex-shrink: 0; }
+        .clip-chip { background: #ffffff; border: 2px solid var(--blue); border-radius: 14px; padding: 6px 10px; display: flex; align-items: center; gap: 8px; min-width: 72px; }
+        .clip-chip-num { background: var(--blue); color: #fff; width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-family: 'Baloo 2', sans-serif; font-weight: 800; font-size: 15px; flex-shrink: 0; }
+        .clip-chip-play { background: var(--blue); color: #fff; border: none; border-radius: 50%; width: 30px; height: 30px; cursor: pointer; font-size: 14px; flex-shrink: 0; }
         .clip-chip-play:active { transform: scale(0.9); }
-        .times-check-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 8px; }
-        .time-check-btn { background: #ffffff; border: 3px solid var(--border-light); border-radius: 16px; padding: 16px 8px; cursor: pointer; font-family: 'Baloo 2', sans-serif; font-size: 26px; font-weight: 800; color: var(--text); text-align: center; transition: all 0.2s; position: relative; user-select: none; }
-        .time-check-btn:hover:not(.correct):not(.wrong) { border-color: var(--yellow); background: var(--bg-tint); transform: translateY(-2px); }
-        .time-check-btn.checked { background: var(--blue-soft); border-color: var(--blue); color: var(--blue-dark); transform: scale(1.05); box-shadow: 0 0 20px rgba(59, 130, 246, 0.3); }
-        .time-check-btn.checked::after { content: '✓'; position: absolute; top: 4px; right: 8px; color: var(--blue); font-size: 18px; font-weight: 900; }
-        .time-check-btn.correct { background: var(--green-soft); border-color: var(--green); color: var(--green-dark); pointer-events: none; }
-        .time-check-btn.correct::after { content: '⭐'; position: absolute; top: 2px; right: 6px; font-size: 16px; }
-        .time-check-btn.wrong { background: var(--red-soft); border-color: var(--red); color: var(--red-dark); animation: shake 0.5s; }
-        .time-check-btn.wrong::after { content: '✗'; position: absolute; top: 4px; right: 8px; color: var(--red); font-size: 18px; font-weight: 900; }
-        .time-check-btn.disabled-attempt { pointer-events: none; }
 
         @media print {
             body { background: white !important; padding: 0 !important; display: block !important; overflow: visible !important; }
@@ -332,10 +304,9 @@
             .site-footer { font-size: 9px; padding: 4px 12px; }
             .practice-card { padding: 28px 20px; }
             .practice-score { font-size: 60px; }
-            .time-check-btn { font-size: 22px; padding: 14px 6px; }
-            .clip-chip { padding: 8px 10px; min-width: 70px; }
-            .clip-chip-emoji { font-size: 22px; }
-            .clip-chip-word { font-size: 11px; }
+            .clip-chip { padding: 6px 8px; min-width: 64px; }
+            .clip-chip-num { width: 26px; height: 26px; font-size: 13px; }
+            .clip-chip-play { width: 28px; height: 28px; font-size: 12px; }
             .multi-audio-box { padding: 10px; }
         }
     </style>
@@ -381,7 +352,7 @@
                         <option value="practice_askanswer">Ask & Answer (11 Q)</option>
                         <option value="practice_listenclock">Listen & Pick Clock (11 Q)</option>
                         <option value="practice_sentencefill">Sentence Fill (11 Q)</option>
-                        <option value="practice_listeningmulti">Multi-Audio (11 Q)</option>
+                        <option value="practice_listeningmulti">Multi-Audio: Pick Activities (11 Q)</option>
                     </optgroup>
                     <optgroup label="📖 Practice: Reading">
                         <option value="practice_audio_text">Audio to Word (11 Q)</option>
@@ -569,6 +540,8 @@
             ACTIVITIES.forEach(a => {
                 const src = `audio/${a.id}.mp3`;
                 if (!audioCache[src]) { const au = new Audio(); au.src = src; au.preload = 'auto'; audioCache[src] = au; }
+                const srcFull = `audio/jawab-aku-${a.id}-jam-${a.naturalJam}.mp3`;
+                if (!audioCache[srcFull]) { const au = new Audio(); au.src = srcFull; au.preload = 'auto'; audioCache[srcFull] = au; }
             });
             for (let i = 1; i <= 12; i++) {
                 const src = `audio/jam-${i}.mp3`;
@@ -669,12 +642,12 @@
                 startTimer(gameQuestions[currentIndex].type);
             }
             canClick = false; playSFX('wrong');
-            document.querySelectorAll('.option-card, .audio-option-card, .text-option-card, .tf-option, .number-option-card, .sentence-option-card, .time-check-btn').forEach(o => { if (o.dataset.correct === 'true') o.classList.add('correct'); });
+            document.querySelectorAll('.option-card, .audio-option-card, .text-option-card, .tf-option, .number-option-card, .sentence-option-card').forEach(o => { if (o.dataset.correct === 'true') o.classList.add('correct'); });
             const q = gameQuestions[currentIndex];
             if (q.type === 'ask-answer') revealAskAnswerJam(q);
             if (q.type === 'listening-multi') {
-                document.querySelectorAll('.time-check-btn').forEach(b => {
-                    if (q.correctTimes.includes(parseInt(b.dataset.time))) b.classList.add('correct');
+                document.querySelectorAll('.option-card[data-activity-id]').forEach(b => {
+                    if (q.correctIds.includes(b.dataset.activityId)) b.classList.add('correct');
                 });
             }
             setTimeout(() => { currentIndex++; currentAttempt = 1; updateXPProgress(); loadQuestion(); }, 2000);
@@ -746,34 +719,20 @@
             const shuffled = [...ACTIVITIES].sort(() => Math.random() - 0.5);
             return buildMultiQuestion(shuffled.slice(0, 3));
         }
+        /* ✅ Pakai naturalJam — aset audio existing dipakai ulang */
         function buildMultiQuestion(picked) {
-            const usedJams = new Set();
-            const clips = [];
-            picked.forEach(a => {
-                let jam;
-                let attempts = 0;
-                do {
-                    jam = Math.floor(Math.random() * 12) + 1;
-                    attempts++;
-                } while (usedJams.has(jam) && attempts < 30);
-                usedJams.add(jam);
-                clips.push({ id: a.id, word: a.word, emoji: a.emoji, jam });
-            });
+            const clips = picked.map(a => ({
+                id: a.id,
+                word: a.word,
+                emoji: a.emoji,
+                jam: a.naturalJam
+            }));
             clips.sort(() => Math.random() - 0.5);
-            const correctTimes = clips.map(c => c.jam);
-            const wrongTimes = [];
-            let attempts = 0;
-            while (wrongTimes.length < 3 && attempts < 50) {
-                const j = Math.floor(Math.random() * 12) + 1;
-                if (!usedJams.has(j) && !wrongTimes.includes(j)) wrongTimes.push(j);
-                attempts++;
-            }
-            const options = [...correctTimes, ...wrongTimes].sort((a,b) => a - b);
+            const correctIds = clips.map(c => c.id);
             return {
                 type: 'listening-multi',
                 clips: clips,
-                correctTimes: correctTimes,
-                options: options
+                correctIds: correctIds
             };
         }
 
@@ -972,7 +931,7 @@
                 });
                 setTimeout(() => playAudioFile(`audio/${q.id}.mp3`), 200);
             }
-            /* 2. MATCH — gambar pertanyaan 120px */
+            /* 2. MATCH */
             else if (q.type === 'match') {
                 instr.innerText = "🔍 Look at the picture, then pick the matching audio!";
                 display.style.display = 'block'; display.innerHTML = activityImageTag(q, 120);
@@ -1071,7 +1030,7 @@
                 });
                 setTimeout(() => playAudioFile(`audio/${q.id}.mp3`), 200);
             }
-            /* 5. TRUE / FALSE — gambar pertanyaan 120px */
+            /* 5. TRUE / FALSE */
             else if (q.type === 'true-false') {
                 instr.innerText = "👂 Listen. Does the audio match the picture & time?";
                 display.style.display = 'block';
@@ -1172,34 +1131,52 @@
                 });
                 setTimeout(() => playAudioFile(`audio/jawab-aku-${q.id}-jam-${q.answerJam}.mp3`), 200);
             }
-            /* 10. LISTENING MULTI */
+            /* 10. LISTENING MULTI — 3 benar + 1 pengecoh = 4 opsi */
             else if (q.type === 'listening-multi') {
-                instr.innerText = "🎧 Listen to 3 activities. Check the 3 times you hear!";
+                instr.innerText = "🎧 Listen to 3 activities. Click the 3 pictures you hear!";
                 document.getElementById('btn-speaker').style.display = 'flex';
                 q._checked = new Set();
                 window._currentMulti = q;
+
+                // Chip: nomor + play button (tanpa nama aktivitas)
                 let chipsHTML = '';
                 q.clips.forEach((c, idx) => {
                     chipsHTML += `<div class="clip-chip">
-                        <span class="clip-chip-emoji">${c.emoji}</span>
-                        <div class="clip-chip-info"><span class="clip-chip-word">${c.word}</span></div>
+                        <span class="clip-chip-num">${idx + 1}</span>
                         <button class="clip-chip-play" onclick="playMultiClip(${idx})">🔊</button>
                     </div>`;
                 });
                 display.style.display = 'block';
                 display.innerHTML = `<div class="multi-audio-box">
-                    <div class="multi-audio-label">🎧 Activities (tap 🔊 to replay)</div>
+                    <div class="multi-audio-label">🎧 Clips (tap 🔊 to replay)</div>
                     <div class="clip-chips-row">${chipsHTML}</div>
                 </div>`;
-                container.className = 'times-check-grid';
-                q.options.forEach(time => {
-                    const btn = document.createElement('div');
-                    btn.className = 'time-check-btn';
-                    btn.innerText = time;
-                    btn.dataset.time = time;
-                    btn.onclick = () => toggleTimeCheck(time, btn);
-                    container.appendChild(btn);
+
+                // ✅ 3 aktivitas benar + 1 pengecoh = 4 opsi
+                const correctIds = q.correctIds;
+                const distractorAct = ACTIVITIES
+                    .filter(a => !correctIds.includes(a.id))
+                    .sort(() => Math.random() - 0.5)[0];
+                const allOptions = [
+                    ...q.clips.map(c => ACTIVITIES.find(a => a.id === c.id)),
+                    distractorAct
+                ].sort(() => Math.random() - 0.5);
+
+                container.className = 'options-grid';
+                allOptions.forEach(act => {
+                    const d = document.createElement('div');
+                    d.className = 'option-card';
+                    d.dataset.activityId = act.id;
+                    if (correctIds.includes(act.id)) d.dataset.correct = 'true';
+                    d.style.flexDirection = 'column';
+                    d.style.gap = '2px';
+                    d.style.padding = '6px';
+                    d.innerHTML = `${activityImageTag(act, 96, true)}
+                        <div style="font-family: 'Baloo 2', sans-serif; font-size: 13px; font-weight: 700; color: var(--text); text-transform: capitalize; text-align: center; line-height: 1.15;">${act.word}</div>`;
+                    d.onclick = () => toggleActivityCheck(act.id, d);
+                    container.appendChild(d);
                 });
+
                 setTimeout(() => playMultiAll(), 300);
             }
 
@@ -1262,71 +1239,46 @@
             }
         }
 
+        /* ✅ Pakai aset audio existing: jawab-aku-{id}-jam-{jam}.mp3 */
         function playMultiAll(btn) {
             const q = window._currentMulti;
             if (!q || !q.clips || q.clips.length !== 3) return;
             stopCurrentAudio();
             if (btn) btn.classList.add('playing');
-            const cleanup = () => { if (btn) btn.classList.remove('playing'); };
-            const clips = q.clips;
-            playAudioSequence(
-                ['audio/aku.mp3', `audio/${clips[0].id}.mp3`, `audio/jam-${clips[0].jam}.mp3`],
-                null,
-                () => {
-                    setTimeout(() => {
-                        playAudioSequence(
-                            ['audio/aku.mp3', `audio/${clips[1].id}.mp3`, `audio/jam-${clips[1].jam}.mp3`],
-                            null,
-                            () => {
-                                setTimeout(() => {
-                                    playAudioSequence(
-                                        ['audio/aku.mp3', `audio/${clips[2].id}.mp3`, `audio/jam-${clips[2].jam}.mp3`],
-                                        null,
-                                        cleanup
-                                    );
-                                }, 400);
-                            },
-                            150
-                        );
-                    }, 400);
-                },
-                150
-            );
+            const files = q.clips.map(c => `audio/jawab-aku-${c.id}-jam-${c.jam}.mp3`);
+            playAudioSequence(files, btn, null, 400);
         }
 
         function playMultiClip(idx) {
             const q = window._currentMulti;
             if (!q || !q.clips || !q.clips[idx]) return;
             const c = q.clips[idx];
-            playAudioSequence(
-                ['audio/aku.mp3', `audio/${c.id}.mp3`, `audio/jam-${c.jam}.mp3`],
-                null, null, 150
-            );
+            playAudioFile(`audio/jawab-aku-${c.id}-jam-${c.jam}.mp3`);
         }
 
-        function toggleTimeCheck(time, element) {
+        function toggleActivityCheck(actId, element) {
             if (!canClick) return;
             const q = window._currentMulti;
             if (!q) return;
             if (element.classList.contains('correct')) return;
 
-            if (q._checked.has(time)) {
-                q._checked.delete(time);
+            if (q._checked.has(actId)) {
+                q._checked.delete(actId);
                 element.classList.remove('checked');
                 return;
             }
             if (q._checked.size >= 3) return;
 
-            q._checked.add(time);
+            q._checked.add(actId);
             element.classList.add('checked');
 
             if (q._checked.size === 3) {
-                const allCorrect = [...q._checked].every(t => q.correctTimes.includes(t));
+                const allCorrect = [...q._checked].every(id => q.correctIds.includes(id));
                 if (allCorrect) {
                     canClick = false;
                     stopTimer();
-                    document.querySelectorAll('.time-check-btn').forEach(btn => {
-                        if (q.correctTimes.includes(parseInt(btn.dataset.time))) btn.classList.add('correct');
+                    document.querySelectorAll('.option-card[data-activity-id]').forEach(btn => {
+                        if (q.correctIds.includes(btn.dataset.activityId)) btn.classList.add('correct');
                     });
                     playSFX('correct');
                     const pts = (currentAttempt === 1 ? 1 : 0.5);
@@ -1339,11 +1291,11 @@
                     setTimeout(() => { currentIndex++; currentAttempt = 1; updateXPProgress(); loadQuestion(); }, 1800);
                 } else {
                     playSFX('wrong');
-                    document.querySelectorAll('.time-check-btn.checked').forEach(btn => btn.classList.add('wrong'));
+                    document.querySelectorAll('.option-card.checked').forEach(btn => btn.classList.add('wrong'));
                     if (currentAttempt === 1) {
                         currentAttempt = 2;
                         setTimeout(() => {
-                            document.querySelectorAll('.time-check-btn').forEach(btn => btn.classList.remove('checked', 'wrong'));
+                            document.querySelectorAll('.option-card[data-activity-id]').forEach(btn => btn.classList.remove('checked', 'wrong'));
                             q._checked.clear();
                             showTryAgainBanner();
                             updateAttemptIndicator();
@@ -1352,14 +1304,15 @@
                             const t = instrEl.innerText.replace(' ⚡ Try again!', '');
                             instrEl.innerText = t + ' ⚡ Try again!';
                             startTimer('listening-multi');
+                            playMultiAll();
                         }, 900);
                     } else {
                         canClick = false;
                         stopTimer();
                         setTimeout(() => {
-                            document.querySelectorAll('.time-check-btn').forEach(btn => {
+                            document.querySelectorAll('.option-card[data-activity-id]').forEach(btn => {
                                 btn.classList.remove('checked', 'wrong');
-                                if (q.correctTimes.includes(parseInt(btn.dataset.time))) btn.classList.add('correct');
+                                if (q.correctIds.includes(btn.dataset.activityId)) btn.classList.add('correct');
                             });
                         }, 900);
                         setTimeout(() => { currentIndex++; currentAttempt = 1; updateXPProgress(); loadQuestion(); }, 2200);
